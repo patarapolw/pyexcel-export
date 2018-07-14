@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "pyexcel-formatter"
+version = "0.1.0"
+description = "Retain Excel worksheet formatting when exporting to *.xlsx, *.ods, *.json and when updating data."
+authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3"
+pyexcel = "^0.5.8"
+pyexcel-ods = "^0.5.3"
+pyexcel-xlsx = "^0.5.6"
+openpyxl = "^2.5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.6"
