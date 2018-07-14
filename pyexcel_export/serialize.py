@@ -1,12 +1,14 @@
 import uuid
 import json
+import base64
+from io import BytesIO
 
 
 class RowExport(object):
     def __init__(self, raw_row):
         self.value = []
         for raw_cell in raw_row:
-            self.value.append(json.dumps(raw_cell, ensure_ascii=False))
+            self.value.append(json.dumps(raw_cell, ensure_ascii=False, cls=MyEncoder))
 
     def __repr__(self):
         if not isinstance(self.value, list):
@@ -40,6 +42,8 @@ class PyexcelExportEncoder(json.JSONEncoder):
             key = uuid.uuid4().hex
             self._replacement_map[key] = json.dumps(o.value, **self.kwargs)
             return "@@%s@@" % (key,)
+        elif isinstance(o, BytesIO):
+            return base64.b64encode(o.getvalue()).decode()
         else:
             return super(PyexcelExportEncoder, self).default(o)
 
@@ -50,6 +54,11 @@ class PyexcelExportEncoder(json.JSONEncoder):
         return result
 
 
-class RowExportEncoder(json.JSONEncoder):
+class MyEncoder(json.JSONEncoder):
     def default(self, o):
-        return o.data
+        if isinstance(o, RowExport):
+            return o.data
+        elif isinstance(o, BytesIO):
+            return base64.b64encode(o.getvalue()).decode()
+
+        return json.JSONEncoder.default(self, o)

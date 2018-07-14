@@ -5,18 +5,21 @@ import os
 import json
 import copy
 
-from .serialize import RowExport, PyexcelExportEncoder, RowExportEncoder
-from .defaults import DEFAULT_META
+from .serialize import RowExport, PyexcelExportEncoder, MyEncoder
+from .defaults import Meta
+from .formatter import ExcelFormatter
 
 
-class ExcelFormatter:
+class ExcelLoader:
     def __init__(self, in_file: str):
         self.in_file = in_file
-        self.meta = DEFAULT_META
+        self.meta = Meta()
 
         in_base, in_format = os.path.splitext(in_file)
 
-        if in_format == '.ods' or in_format == '.xlsx':
+        if in_format == '.ods':
+            self.data = self._load_pyexcel_ods()
+        if in_format == '.xlsx':
             self.data = self._load_pyexcel_excel()
         elif in_format == '.json':
             if os.path.splitext(in_base)[1] == '.pyexcel':
@@ -26,8 +29,14 @@ class ExcelFormatter:
         else:
             raise ValueError('Unsupported file format, {}.'.format(in_format))
 
+    def _load_pyexcel_ods(self):
+        updated_data = pyexcel.get_book_dict(file_name=self.in_file)
+
+        return self._set_updated_data(updated_data)
+
     def _load_pyexcel_excel(self):
         updated_data = pyexcel.get_book_dict(file_name=self.in_file)
+        self.meta['_styles'] = ExcelFormatter(self.in_file).data
 
         return self._set_updated_data(updated_data)
 
@@ -52,7 +61,6 @@ class ExcelFormatter:
         data = OrderedDict()
 
         if '_meta' in updated_data.keys():
-            updated_meta = []
             for row in updated_data['_meta']:
                 if not row or not row[0]:
                     break
@@ -64,6 +72,12 @@ class ExcelFormatter:
 
                 self.meta[row[0]] = updated_meta_value
 
+            try:
+                self.meta.move_to_end('modified', last=False)
+                self.meta.move_to_end('created', last=False)
+            except KeyError as e:
+                print(e)
+
             updated_data.pop('_meta')
 
         for k, v in updated_data.items():
@@ -74,7 +88,7 @@ class ExcelFormatter:
     @property
     def formatted_object(self):
         formatted_object = OrderedDict(
-            _meta=list(self.meta.items())
+            _meta=self.meta.matrix
         )
 
         for sheet_name, sheet_data in self.data.items():
@@ -98,17 +112,25 @@ class ExcelFormatter:
             out_base = os.path.splitext(out_file)[0]
 
         save_data = copy.deepcopy(self.data)
+
         if out_format == '.json' or retain_meta:
-            save_data['_meta'] = list(self.meta.items())
-            print(save_data)
+            save_data['_meta'] = self.meta.matrix
             save_data.move_to_end('_meta', last=False)
         else:
             if '_meta' in save_data.keys():
                 save_data.pop('_meta')
 
+        to_remove = []
         for sheet_name, sheet_matrix in save_data.items():
-            for i, row in enumerate(sheet_matrix):
-                save_data[sheet_name][i] = RowExport(row)
+            if sheet_name == '_meta' or not sheet_name.startswith('_'):
+                for i, row in enumerate(sheet_matrix):
+                    if out_format == '.json':
+                        save_data[sheet_name][i] = RowExport(row)
+            else:
+                to_remove.append(sheet_name)
+
+        for sheet_name in to_remove:
+            save_data.pop(sheet_name)
 
         if out_format == '.ods':
             self._save_pyexcel_ods(out_file=out_file, out_data=save_data)
@@ -127,7 +149,11 @@ class ExcelFormatter:
         pyexcel.save_as(out_data, out_file)
 
     def _save_openpyxl(self, out_file: str, out_data: OrderedDict):
-        openpyxl_export(out_data=out_data, out_file=out_file, meta=self.meta)
+        formatter = ExcelFormatter(out_file)
+        if os.path.exists(out_file):
+            self.meta['_styles'] = formatter.data
+
+        formatter.save(out_data, out_file, meta=self.meta)
 
     @staticmethod
     def _save_pyexcel_json(out_file: str, out_data: OrderedDict):
@@ -139,6 +165,6 @@ class ExcelFormatter:
     @staticmethod
     def _save_json(out_file: str, out_data: OrderedDict):
         with open(out_file, 'w') as f:
-            export_string = json.dumps(out_data, cls=RowExportEncoder,
+            export_string = json.dumps(out_data, cls=MyEncoder,
                                        indent=2, ensure_ascii=False)
             f.write(export_string)

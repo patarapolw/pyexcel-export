@@ -1,13 +1,22 @@
 import pytest
 
-from pyexcel_formatter.app import ExcelFormatter
-from pyexcel_formatter.dir import root_path
+from pyexcel_export.app import ExcelLoader
+from pyexcel_export.formatter import ExcelFormatter
+from pyexcel_export.dir import root_path
 
 
 @pytest.mark.parametrize('in_file', [
-    'template.pyexcel.json'
+    # 'template.pyexcel.json',
+    'template.xlsx'
 ])
 def test_data(in_file):
-    formatter = ExcelFormatter(root_path('tests/input/{}'.format(in_file)))
-    print(formatter.data)
-    print(formatter.meta)
+    excel_loader = ExcelLoader(root_path('tests/input/{}'.format(in_file)))
+    # print(excel_loader.data)
+    print(excel_loader.meta.view)
+
+
+@pytest.mark.parametrize('in_file', [
+    'template.xlsx'
+])
+def test_formatter(in_file):
+    print(type(ExcelFormatter(root_path('tests/input/{}'.format(in_file))).data))

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="TabdirProjectConfiguration">
+    <folderConfigurations>
+      <Entry folder="$PROJECT_DIR$">
+        <FolderConfiguration>
+          <option name="charsInName" value="5" />
+          <option name="countMaxDirsFromStart" value="true" />
+          <option name="dirSeparator" value="/" />
+          <option name="filesExtensions" value="" />
+          <option name="maxDirsToShow" value="3" />
+          <option name="reduceDirNames" value="false" />
+          <option name="relativeTo" value="$PROJECT_DIR$" />
+          <option name="removeDuplicates" value="false" />
+          <option name="titleFormat" value="[{0}] {1}" />
+          <option name="useExtensions" value="Do not use" />
+        </FolderConfiguration>
+      </Entry>
+    </folderConfigurations>
+  </component>
+</project>
