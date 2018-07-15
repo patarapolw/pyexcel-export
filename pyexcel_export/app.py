@@ -11,28 +11,26 @@ from .formatter import ExcelFormatter
 
 
 class ExcelLoader:
-    def __init__(self, in_file: str):
-        self.in_file = in_file
-        self.meta = Meta()
+    def __init__(self, in_file: str=None, data=None, **flags):
+        if in_file:
+            self.in_file = in_file
+            self.meta = Meta(**flags)
 
-        in_base, in_format = os.path.splitext(in_file)
+            in_base, in_format = os.path.splitext(in_file)
 
-        if in_format == '.ods':
-            self.data = self._load_pyexcel_ods()
-        if in_format == '.xlsx':
-            self.data = self._load_pyexcel_excel()
-        elif in_format == '.json':
-            if os.path.splitext(in_base)[1] == '.pyexcel':
-                self.data = self._load_pyexcel_json()
+            if in_format == '.xlsx':
+                self.data = self._load_pyexcel_excel()
+            elif in_format == '.json':
+                if os.path.splitext(in_base)[1] == '.pyexcel':
+                    self.data = self._load_pyexcel_json()
+                else:
+                    self.data = self._load_json()
             else:
-                self.data = self._load_json()
+                raise ValueError('Unsupported file format, {}.'.format(in_format))
+        elif data:
+            self.meta = Meta(**flags)
         else:
-            raise ValueError('Unsupported file format, {}.'.format(in_format))
-
-    def _load_pyexcel_ods(self):
-        updated_data = pyexcel.get_book_dict(file_name=self.in_file)
-
-        return self._set_updated_data(updated_data)
+            raise ValueError("Either in_file or data must be supplied.")
 
     def _load_pyexcel_excel(self):
         updated_data = pyexcel.get_book_dict(file_name=self.in_file)
@@ -99,7 +97,7 @@ class ExcelLoader:
 
         return formatted_object
 
-    def save(self, out_file: str, retain_meta=True, out_format=None):
+    def save(self, out_file: str, retain_meta=True, out_format=None, retain_styles=True):
         self.meta['modified'] = datetime.fromtimestamp(datetime.now().timestamp()).isoformat()
         self.meta.move_to_end('modified', last=False)
 
@@ -115,6 +113,12 @@ class ExcelLoader:
 
         if out_format == '.json' or retain_meta:
             save_data['_meta'] = self.meta.matrix
+            if not retain_styles:
+                for i, row in enumerate(save_data['_meta']):
+                    if row[0] == '_styles':
+                        save_data['_meta'].pop(i)
+                        break
+
             save_data.move_to_end('_meta', last=False)
         else:
             if '_meta' in save_data.keys():
@@ -132,9 +136,7 @@ class ExcelLoader:
         for sheet_name in to_remove:
             save_data.pop(sheet_name)
 
-        if out_format == '.ods':
-            self._save_pyexcel_ods(out_file=out_file, out_data=save_data)
-        elif out_format == '.xlsx':
+        if out_format == '.xlsx':
             self._save_openpyxl(out_file=out_file, out_data=save_data)
         elif out_format == '.json':
             if os.path.splitext(out_base)[1] == '.pyexcel':
@@ -143,10 +145,6 @@ class ExcelLoader:
                 self._save_json(out_file=out_file, out_data=save_data)
         else:
             raise ValueError('Unsupported file format, {}.'.format(out_file))
-
-    @staticmethod
-    def _save_pyexcel_ods(out_file: str, out_data: OrderedDict):
-        pyexcel.save_as(out_data, out_file)
 
     def _save_openpyxl(self, out_file: str, out_data: OrderedDict):
         formatter = ExcelFormatter(out_file)

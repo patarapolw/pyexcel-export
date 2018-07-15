@@ -1,6 +1,6 @@
 import openpyxl
-from openpyxl.worksheet.copier import WorksheetCopy
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.copier import WorksheetCopy
 
 import os
 import logging
