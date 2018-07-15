@@ -35,6 +35,8 @@ class ExcelFormatter:
         self.styled_wb = openpyxl.load_workbook(_styles)
 
     def save(self, raw_data, out_file, meta=None, retain_meta=True):
+        retain_meta = True
+
         if not meta:
             meta = Meta()
 

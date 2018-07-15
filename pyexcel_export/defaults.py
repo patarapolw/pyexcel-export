@@ -36,7 +36,7 @@ class Meta(OrderedDict):
                     assigned = True
 
             if not assigned:
-                if type(v) not in (int, float, str):
+                if type(v) not in (int, float, str, bool):
                     result[k] = {str(type(v)): v}
 
         return list(result.items())

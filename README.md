@@ -22,6 +22,8 @@ or clone it and install it.
 
 ## Usage
 
+For more documentation, see https://github.com/patarapolw/pyexcel-export/tree/master/docs
+
 ### Read \*.pyexcel.json
 
 ```python

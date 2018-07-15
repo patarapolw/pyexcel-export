@@ -1,9 +1,8 @@
-import pyexcel_export
-from tests import getfile
+import openpyxl
 
 
 if __name__ == '__main__':
-    data, meta = pyexcel_export.get_data(getfile('test.xlsx'))
-    print(meta)
+   wb = openpyxl.load_workbook('long.xlsx')
+   print(wb['_meta']['B3'].__dict__)
 
-    pyexcel_export.save_data('test.yaml', data, meta, retain_styles=True)
+   # wb.save('test.xlsx')
