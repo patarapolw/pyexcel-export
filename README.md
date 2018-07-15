@@ -22,6 +22,26 @@ or clone it and install it.
 
 ## Usage
 
+### Read \*.pyexcel.json
+
+```pydocstring
+>>> from pyexcel_export import read_pyexcel_json
+>>> data, meta = read_pyexcel_json('test.pyexcel.json')
+>>> data
+OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1419644212689, 'Hello!', 'Nǐ hǎo!', '你好！', '[sound:tmp1cctcn.mp3]', ''], [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', '你说什么？', '[sound:tmp4tzxbu.mp3]', ''], [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', '你做了什么？', '[sound:333012.mp3]', '']])])
+>>> meta
+{
+  "created": "'2018-07-15T05:32:43.976194'",
+  "modified": "'2018-07-15T05:32:52.248192'",
+  "has_header": "True",
+  "freeze_header": "True",
+  "col_width_fit_param_keys": "True",
+  "col_width_fit_ids": "True",
+  "allow_hidden_tables": "True",
+  "_styles": "<_io.BytesIO object at 0x10c3295c8>"
+}
+```
+
 ### Exporting stylesheets
 
 ```pydocstring
