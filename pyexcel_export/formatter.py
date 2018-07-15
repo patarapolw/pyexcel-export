@@ -112,7 +112,7 @@ class ExcelFormatter:
                 wb.remove(wb[sheet_name])
 
         for sheet_name in wb.sheetnames:
-            if sheet_name.startswith('_') and sheet_name != '_meta':
+            if (sheet_name.startswith('_') and sheet_name != '_meta') or self.is_empty_sheet(wb[sheet_name]):
                 wb.remove(wb[sheet_name])
 
         wb.save(out_file)
@@ -168,3 +168,15 @@ class ExcelFormatter:
                         col_letter = get_column_letter(i + 1)
                         width = max([len(str(cell.value)) for cell in list(ws.iter_cols())[i]])
                         ws.column_dimensions[col_letter].width = width + 2
+
+    @staticmethod
+    def is_empty_sheet(ws):
+        def is_not_empty():
+            for row in ws.iter_rows():
+                for cell in row:
+                    if cell.value:
+                        return True
+
+            return False
+
+        return not is_not_empty()
