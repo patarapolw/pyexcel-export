@@ -27,7 +27,7 @@ or clone it and install it.
 ```python
 >>> from pyexcel_export import get_data
 >>> from collections import OrderedDict
->>> data, meta = get_data('test.pyexcel.json')
+>>> data, meta = get_data('test.yaml')  # *.pyexcel.json is also possible.
 >>> data
 OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1419644212689, 'Hello!', 'Nǐ hǎo!', '你好！', '[sound:tmp1cctcn.mp3]', ''], [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', '你说什么？', '[sound:tmp4tzxbu.mp3]', ''], [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', '你做了什么？', '[sound:333012.mp3]', '']])])
 >>> meta
