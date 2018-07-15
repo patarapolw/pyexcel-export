@@ -6,7 +6,7 @@ pyexcel-export also introduces a new exporting format, `*.pyexcel.json` which is
 
 ## Known constraints
 
-The "stylesheets" exported from Excel is in a very long base64 encoded format when exported to `*.json` or `*.pyexcel.json`, so exporting is disabled by default.
+The "stylesheets" exported from Excel is in a very long base64 encoded format when exported to `*.json` or `*.pyexcel.json`, so exporting such to `*.json` is disabled by default.
 
 As stylesheets copying works by [`openpyxl.worksheet.copier.WorksheetCopy`](https://openpyxl.readthedocs.io/en/2.5/_modules/openpyxl/worksheet/copier.html), it may work only on values, styles, dimensions and merged cells, but charts might not be supported.
 
