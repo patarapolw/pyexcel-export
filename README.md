@@ -24,9 +24,10 @@ or clone it and install it.
 
 ### Read \*.pyexcel.json
 
-```pydocstring
->>> from pyexcel_export import read_pyexcel_json
->>> data, meta = read_pyexcel_json('test.pyexcel.json')
+```python
+>>> from pyexcel_export import get_data
+>>> from collections import OrderedDict
+>>> data, meta = get_data('test.pyexcel.json')
 >>> data
 OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1419644212689, 'Hello!', 'Nǐ hǎo!', '你好！', '[sound:tmp1cctcn.mp3]', ''], [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', '你说什么？', '[sound:tmp4tzxbu.mp3]', ''], [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', '你做了什么？', '[sound:333012.mp3]', '']])])
 >>> meta
@@ -48,9 +49,9 @@ Meta({
 
 ### Exporting stylesheets
 
-```pydocstring
->>> from pyexcel_export import get_stylesheet
->>> get_stylesheet()
+```python
+>>> from pyexcel_export import get_meta
+>>> get_meta()
 {
   "created": "'2018-07-15T08:03:17.762214'",
   "has_header": "True",
@@ -58,7 +59,7 @@ Meta({
   "col_width_fit_param_keys": "True",
   "col_width_fit_ids": "True"
 }
->>> get_stylesheet('test.xlsx')
+>>> get_meta('test.xlsx')
 Meta({
   "created": "'2018-07-12T15:21:25.777499'",
   "modified": "'2018-07-12T15:21:25.777523'",
@@ -70,12 +71,14 @@ Meta({
 })
 ```
 ### Saving files, while preserving the formatting.
-```pydocstring
->>> from pyexcel_export import get_stylesheet, save_data
->>> stylesheet = get_stylesheet('test.xlsx')
+
+```python
+>>> from pyexcel_export import get_meta, save_data
+>>> from collections import OrderedDict
+>>> meta = get_meta('test.xlsx')
 >>> data = OrderedDict()
 >>> data.update({"Sheet 1": [["header A", "header B", "header C"], [1, 2, 3]]})
->>> save_data("your_file.xlsx", data)
+>>> save_data("your_file.xlsx", data, meta=meta)
 ```
 ### \*.yaml format
 
