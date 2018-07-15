@@ -9,6 +9,7 @@ from io import BytesIO
 from collections import OrderedDict
 
 from .serialize import MyEncoder
+from .defaults import Meta
 
 debug_logger = logging.getLogger('debug')
 
@@ -34,6 +35,9 @@ class ExcelFormatter:
         self.styled_wb = openpyxl.load_workbook(_styles)
 
     def save(self, raw_data, out_file, meta=None, retain_meta=True):
+        if not meta:
+            meta = Meta()
+
         if '_styles' in meta.keys():
             self.data = meta['_styles']
             meta['_styles'] = self.data

@@ -13,10 +13,10 @@ from tests import getfile
     'long.yaml',
     'test.xlsx'
 ])
-def test_get_stylesheet(in_file):
+def test_get_meta(in_file):
     if in_file is not None:
         in_file = getfile(in_file)
 
-    stylesheet = pyexcel_export.get_stylesheet(in_file)
+    meta = pyexcel_export.get_meta(in_file)
 
-    assert isinstance(stylesheet, Meta)
+    assert isinstance(meta, Meta)

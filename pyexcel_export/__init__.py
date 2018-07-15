@@ -8,7 +8,7 @@ def get_data(in_file, **flags):
     return loader.data, loader.meta
 
 
-def get_stylesheet(in_file=None, **flags):
+def get_meta(in_file=None, **flags):
     """
 
     :param in_file: supported file formats are *.xlsx, *.json and *.pyexcel.json
@@ -23,17 +23,20 @@ def get_stylesheet(in_file=None, **flags):
         return Meta(**flags)
 
 
-def save_data(out_file, data, stylesheet=None, retain_styles=False, **flags):
+def save_data(out_file, data, meta=None, retain_styles=False, **flags):
     """
 
     :param out_file: supported file formats are *.xlsx, *.json and *.pyexcel.json
     :param data:
-    :param stylesheet:
+    :param meta:
     :param retain_styles: whether you want to retain the overwritten worksheet's formatting
     :param flags
     :return:
     """
     loader = ExcelLoader(**flags)
-    loader.meta = stylesheet
+
+    if meta is not None:
+        loader.meta = meta
+
     loader.data = data
     loader.save(out_file, retain_styles=retain_styles)
