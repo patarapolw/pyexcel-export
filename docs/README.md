@@ -27,4 +27,8 @@
 - retain_styles (default=False): whether to export the base64 encoded stylesheets to your `_meta` worksheet.
 - flags: same as `pyexcel_export.get_data()`
 
-### Sample file format for \*.yaml and \*.pyexcel.json are also provided in this folder.
+#### Sample file format for \*.yaml and \*.pyexcel.json are also provided in this folder.
+
+## Writing hidden tables (hidden worksheets)
+
+Just name the worksheets starting with `_` and set the flag `allow_table_hiding` to True (default: True).
