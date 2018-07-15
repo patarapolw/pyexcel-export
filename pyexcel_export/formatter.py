@@ -83,7 +83,7 @@ class ExcelFormatter:
                 self.create_styled_sheet(wb, sheet_name)
                 inserted_sheets.append(sheet_name)
             else:
-                if meta.get('allow_table_hiding', True):
+                if meta.get('allow_table_hiding', True) in (True, 'true'):
                     if not sheet_name.startswith('_'):
                         self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
                     else:
@@ -154,13 +154,14 @@ class ExcelFormatter:
                         value=value)
 
         if rules is not None:
-            if rules.get('has_header', False) and rules.get('freeze_header', False):
+            if rules.get('has_header', False) in (True, 'true') \
+                    and rules.get('freeze_header', False) in (True, 'true'):
                 if ws.title != '_meta':
                     ws.freeze_panes = 'A2'
-            if rules.get('col_width_fit_param_keys', False):
+            if rules.get('col_width_fit_param_keys', False) in (True, 'true'):
                 width = max([len(str(cell.value)) for cell in next(ws.iter_cols())])
                 ws.column_dimensions['A'].width = width + 2
-            if rules.get('col_width_fit_ids', False):
+            if rules.get('col_width_fit_ids', False) in (True, 'true'):
                 for i, header_cell in enumerate(next(ws.iter_rows())):
                     header_item = header_cell.value
                     if header_item and header_item.endswith('id'):
