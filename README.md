@@ -52,13 +52,13 @@ Meta({
 ```python
 >>> from pyexcel_export import get_meta
 >>> get_meta()
-{
+Meta({
   "created": "'2018-07-15T08:03:17.762214'",
   "has_header": "True",
   "freeze_header": "True",
   "col_width_fit_param_keys": "True",
   "col_width_fit_ids": "True"
-}
+})
 >>> get_meta('test.xlsx')
 Meta({
   "created": "'2018-07-12T15:21:25.777499'",
