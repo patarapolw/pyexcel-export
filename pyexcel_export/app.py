@@ -125,7 +125,7 @@ class ExcelLoader:
 
         save_data = copy.deepcopy(self.data)
 
-        if out_format == '.json' or retain_meta:
+        if retain_meta:
             save_data['_meta'] = self.meta.matrix
             if not retain_styles:
                 for i, row in enumerate(save_data['_meta']):
@@ -151,7 +151,7 @@ class ExcelLoader:
             save_data.pop(sheet_name)
 
         if out_format == '.xlsx':
-            self._save_openpyxl(out_file=out_file, out_data=save_data)
+            self._save_openpyxl(out_file=out_file, out_data=save_data, retain_meta=retain_meta)
         elif out_format == '.json':
             if os.path.splitext(out_base)[1] == '.pyexcel':
                 self._save_pyexcel_json(out_file=out_file, out_data=save_data)
@@ -162,12 +162,12 @@ class ExcelLoader:
         else:
             raise ValueError('Unsupported file format, {}.'.format(out_file))
 
-    def _save_openpyxl(self, out_file: str, out_data: OrderedDict):
+    def _save_openpyxl(self, out_file: str, out_data: OrderedDict, retain_meta: bool=True):
         formatter = ExcelFormatter(out_file)
         if os.path.exists(out_file):
             self.meta['_styles'] = formatter.data
 
-        formatter.save(out_data, out_file, meta=self.meta)
+        formatter.save(out_data, out_file, meta=self.meta, retain_meta=retain_meta)
 
     @staticmethod
     def _save_pyexcel_json(out_file: str, out_data: OrderedDict):

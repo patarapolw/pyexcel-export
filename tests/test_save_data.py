@@ -25,7 +25,7 @@ def test_save_new(in_file, out_format):
     while os.path.exists(getfile(out_file, 'output')):
         out_file = '_' + out_file
 
-    pyexcel_export.save_data(getfile(out_file, 'output'), data, meta=meta, retain_styles=True)
+    pyexcel_export.save_data(getfile(out_file, 'output'), data, meta=meta)
 
 
 @pytest.mark.parametrize('in_file, update_to', [
