@@ -12,7 +12,8 @@ class Meta(OrderedDict):
             ('has_header', True),
             ('freeze_header', True),
             ('col_width_fit_param_keys', True),
-            ('col_width_fit_ids', True)
+            ('col_width_fit_ids', True),
+            ('allow_hidden_tables', True)
         ])
 
         default.update(**kwargs)

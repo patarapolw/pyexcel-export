@@ -11,7 +11,7 @@ from .formatter import ExcelFormatter
 
 
 class ExcelLoader:
-    def __init__(self, in_file: str=None, data=None, **flags):
+    def __init__(self, in_file: str=None, **flags):
         if in_file:
             self.in_file = in_file
             self.meta = Meta(**flags)
@@ -27,10 +27,8 @@ class ExcelLoader:
                     self.data = self._load_json()
             else:
                 raise ValueError('Unsupported file format, {}.'.format(in_format))
-        elif data:
-            self.meta = Meta(**flags)
         else:
-            raise ValueError("Either in_file or data must be supplied.")
+            self.meta = Meta(**flags)
 
     def _load_pyexcel_excel(self):
         updated_data = pyexcel.get_book_dict(file_name=self.in_file)
