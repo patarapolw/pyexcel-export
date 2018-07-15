@@ -1,9 +1,12 @@
 [tool.poetry]
 name = "pyexcel-export"
 version = "0.1.0"
-description = "Retain Excel worksheet formatting when exporting to *.xlsx, *.ods, *.json and when updating data."
+description = "Preserve good formatting when exporting to *.xlsx, *.ods, *.json and when updating data."
 authors = ["Pacharapol Withayasakpunt <patarapolw@gmail.com>"]
 license = "MIT"
+readme = "README.md"
+repository = "https://github.com/patarapolw/pyexcel-export"
+homepage = "https://github.com/patarapolw/pyexcel-export"
 
 [tool.poetry.dependencies]
 python = ">=3"
