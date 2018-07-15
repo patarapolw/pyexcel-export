@@ -30,7 +30,7 @@ or clone it and install it.
 >>> data
 OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1419644212689, 'Hello!', 'Nǐ hǎo!', '你好！', '[sound:tmp1cctcn.mp3]', ''], [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', '你说什么？', '[sound:tmp4tzxbu.mp3]', ''], [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', '你做了什么？', '[sound:333012.mp3]', '']])])
 >>> meta
-{
+Meta({
   "created": "'2018-07-15T05:32:43.976194'",
   "modified": "'2018-07-15T05:32:52.248192'",
   "has_header": "True",
@@ -39,7 +39,11 @@ OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1
   "col_width_fit_ids": "True",
   "allow_hidden_tables": "True",
   "_styles": "<_io.BytesIO object at 0x10c3295c8>"
-}
+})
+>>> meta.matrix
+[('created', '2018-07-15T05:32:43.976194'), ('modified', '2018-07-15T05:32:52.248192'), ('has_header', True), ('freeze_header', True), ('col_width_fit_param_keys', True), ('col_width_fit_ids', True), ('allow_hidden_tables', True), ('_styles', {"<class '_io.BytesIO'>": <_io.BytesIO object at 0x1103d9048>})]
+>>> meta.excel_matrix
+[('created', '2018-07-15T05:32:43.976194'), ('modified', '2018-07-15T05:32:52.248192'), ('has_header', {"<class 'bool'>": True}), ('freeze_header', {"<class 'bool'>": True}), ('col_width_fit_param_keys', {"<class 'bool'>": True}), ('col_width_fit_ids', {"<class 'bool'>": True}), ('allow_hidden_tables', {"<class 'bool'>": True}), ('_styles', {"<class '_io.BytesIO'>": <_io.BytesIO object at 0x10b56b048>})]
 ```
 
 ### Exporting stylesheets
@@ -55,7 +59,7 @@ OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1
   "col_width_fit_ids": "True"
 }
 >>> get_stylesheet('test.xlsx')
-{
+Meta({
   "created": "'2018-07-12T15:21:25.777499'",
   "modified": "'2018-07-12T15:21:25.777523'",
   "has_header": "True",
@@ -63,7 +67,7 @@ OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1
   "col_width_fit_param_keys": "True",
   "col_width_fit_ids": "True",
   "_styles": "<_io.BytesIO object at 0x10553b678>"
-}
+})
 ```
 ### Saving files, while preserving the formatting.
 ```pydocstring

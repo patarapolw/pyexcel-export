@@ -21,14 +21,14 @@ class Meta(OrderedDict):
         super().__init__(**default)
 
     @property
-    def excel_view(self):
+    def excel_matrix(self):
         result = OrderedDict(self)
 
         for k, v in self.items():
             if type(v) not in (int, float, str):
                 result[k] = {str(type(v)): v}
 
-        return result
+        return list(result.items())
 
     @property
     def view(self):
@@ -60,4 +60,4 @@ class Meta(OrderedDict):
         for k, v in self.items():
             output[k] = repr(v)
 
-        return json.dumps(output, indent=2)
+        return 'Meta({})'.format(json.dumps(output, indent=2))

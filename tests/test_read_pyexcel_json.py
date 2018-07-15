@@ -23,3 +23,6 @@ def test_read_pyexcel_json(in_file):
                 assert isinstance(cell, (int, str, bool, float))
 
     assert isinstance(meta, Meta)
+
+    print(meta.matrix)
+    print(meta.excel_matrix)

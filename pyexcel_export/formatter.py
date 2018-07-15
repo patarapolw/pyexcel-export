@@ -63,7 +63,7 @@ class ExcelFormatter:
 
             meta_matrix = []
 
-            for k, v in meta.excel_view.items():
+            for k, v in meta.excel_matrix:
                 if not k.startswith('_'):
                     if isinstance(v, (dict, OrderedDict)):
                         v = json.dumps(v, cls=MyEncoder)
