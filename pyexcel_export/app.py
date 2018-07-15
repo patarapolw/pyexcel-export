@@ -10,7 +10,6 @@ import logging
 from .serialize import RowExport, PyexcelExportEncoder, MyEncoder
 from .defaults import Meta
 from .formatter import ExcelFormatter
-from .yaml_deserialize import MyYamlLoader
 
 debugger_logger = logging.getLogger('debug')
 
