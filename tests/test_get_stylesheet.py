@@ -8,9 +8,10 @@ from tests import getfile
 
 @pytest.mark.parametrize('in_file', [
     None,
-    'template.pyexcel.json',
-    'template.xlsx',
-    'update_to.xlsx'
+    'short.pyexcel.json',
+    'short.yaml',
+    'long.yaml',
+    'test.xlsx'
 ])
 def test_get_stylesheet(in_file):
     if in_file is not None:

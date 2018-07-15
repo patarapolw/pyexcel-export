@@ -13,7 +13,7 @@ class Meta(OrderedDict):
             ('freeze_header', True),
             ('col_width_fit_param_keys', True),
             ('col_width_fit_ids', True),
-            ('allow_hidden_tables', True)
+            ('allow_table_hiding', True)
         ])
 
         default.update(**kwargs)
@@ -51,7 +51,10 @@ class Meta(OrderedDict):
             if k == "<class 'bool'>":
                 item = v
             elif k == "<class '_io.BytesIO'>":
-                item = BytesIO(base64.b64decode(v))
+                if isinstance(v, BytesIO):
+                    item = v
+                else:
+                    item = BytesIO(base64.b64decode(v))
 
         super().__setitem__(key, item)
 

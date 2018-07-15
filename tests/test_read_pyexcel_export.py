@@ -2,17 +2,19 @@ import pytest
 
 from collections import OrderedDict
 
-from pyexcel_export import read_pyexcel_json
+import pyexcel_export
 from pyexcel_export.defaults import Meta
 
 from tests import getfile
 
 
 @pytest.mark.parametrize('in_file', [
-    'template.pyexcel.json'
+    'short.pyexcel.json',
+    'short.yaml',
+    'long.yaml'
 ])
-def test_read_pyexcel_json(in_file):
-    data, meta = read_pyexcel_json(getfile(in_file))
+def test_read_pyexcel_export(in_file):
+    data, meta = pyexcel_export.get_data(getfile(in_file))
 
     assert isinstance(data, OrderedDict)
     for k, v in data.items():

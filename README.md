@@ -2,7 +2,7 @@
 
 pyexcel-export is a wrapper around [pyexcel](https://github.com/pyexcel/pyexcel), [pyexcel-xlsx](https://github.com/pyexcel/pyexcel-xlsx) and [openpyxl](https://bitbucket.org/openpyxl/openpyxl) to read the formatting (stylesheets) and update the pre-existing file without destroying the stylesheets.
 
-pyexcel-export also introduces a new exporting format, `*.pyexcel.json` which is based on [NoIndentEncoder](https://stackoverflow.com/a/25935321/9023855). This allows you to edit the spreadsheet in you favorite text editor, without being frustrated by automatically collapsed cells in Excel.
+pyexcel-export also introduces two new exporting format, `*.yaml` and `*.pyexcel.json` which is based on [NoIndentEncoder](https://stackoverflow.com/a/25935321/9023855). This allows you to edit the spreadsheet in you favorite text editor, without being frustrated by automatically collapsed cells in Excel.
 
 ## Known constraints
 
@@ -77,6 +77,28 @@ Meta({
 >>> data.update({"Sheet 1": [["header A", "header B", "header C"], [1, 2, 3]]})
 >>> save_data("your_file.xlsx", data)
 ```
+### \*.yaml format
+
+```yaml
+!!python/object/apply:collections.OrderedDict
+- - - _meta
+    - - !!python/tuple [created, '2018-07-15T05:32:43.976194']
+      - !!python/tuple [modified, '2018-07-15T13:31:47.725480']
+      - !!python/tuple [has_header, true]
+      - !!python/tuple [freeze_header, true]
+      - !!python/tuple [col_width_fit_param_keys, true]
+      - !!python/tuple [col_width_fit_ids, true]
+      - !!python/tuple [allow_hidden_tables, true]
+  - - test
+    - - [id, English, Pinyin, Hanzi, Audio, Tags]
+      - [1419644212689, Hello!, Nǐ hǎo!, 你好！, '[sound:tmp1cctcn.mp3]', '']
+      - [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', 你说什么？, '[sound:tmp4tzxbu.mp3]',
+        '']
+      - [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', 你做了什么？, '[sound:333012.mp3]',
+        '']
+
+```
+
 ### \*.pyexcel.json format
 ```json
 {

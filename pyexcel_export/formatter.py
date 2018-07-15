@@ -71,18 +71,6 @@ class ExcelFormatter:
 
             self.fill_matrix(wb['_meta'], meta_matrix, rules=meta)
 
-            if '_hidden' in meta.keys():
-                starting_index = len(meta_matrix) + 1
-
-                for k, v in meta['_hidden'].items():
-                    wb['_meta'].append()
-
-                    table_matrix = [['# ' + k]]
-                    table_matrix.extend(v)
-                    self.fill_matrix(wb['_meta'], table_matrix, starting_index, rules=meta)
-
-                    starting_index += len(table_matrix) + 1
-
         if '_meta' in raw_data.keys():
             raw_data.pop('_meta')
 
@@ -91,7 +79,19 @@ class ExcelFormatter:
                 self.create_styled_sheet(wb, sheet_name)
                 inserted_sheets.append(sheet_name)
             else:
-                self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
+                if meta.get('allow_table_hiding', True):
+                    if not sheet_name.startswith('_'):
+                        self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
+                    else:
+                        for i, cell in enumerate(next(wb['_meta'].iter_cols())):
+                            if not cell.value:
+                                matrix = [[sheet_name]]
+                                matrix.extend(cell_matrix)
+
+                                self.fill_matrix(wb['_meta'], matrix, start_row=i+1, rules=meta)
+                                break
+                else:
+                    self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
 
             ws = wb[sheet_name]
             for row_num, row in enumerate(cell_matrix):

@@ -4,10 +4,15 @@ from datetime import datetime
 import os
 import json
 import copy
+import yaml
+import logging
 
 from .serialize import RowExport, PyexcelExportEncoder, MyEncoder
 from .defaults import Meta
 from .formatter import ExcelFormatter
+from .yaml_deserialize import MyYamlLoader
+
+debugger_logger = logging.getLogger('debug')
 
 
 class ExcelLoader:
@@ -19,18 +24,20 @@ class ExcelLoader:
             in_base, in_format = os.path.splitext(in_file)
 
             if in_format == '.xlsx':
-                self.data = self._load_pyexcel_excel()
+                self.data = self._load_pyexcel_xlsx()
             elif in_format == '.json':
                 if os.path.splitext(in_base)[1] == '.pyexcel':
                     self.data = self._load_pyexcel_json()
                 else:
                     self.data = self._load_json()
+            elif in_format in ('.yaml', '.yml'):
+                self.data = self._load_yaml()
             else:
                 raise ValueError('Unsupported file format, {}.'.format(in_format))
         else:
             self.meta = Meta(**flags)
 
-    def _load_pyexcel_excel(self):
+    def _load_pyexcel_xlsx(self):
         updated_data = pyexcel.get_book_dict(file_name=self.in_file)
         self.meta['_styles'] = ExcelFormatter(self.in_file).data
 
@@ -53,6 +60,12 @@ class ExcelLoader:
 
         return self._set_updated_data(data)
 
+    def _load_yaml(self):
+        with open(self.in_file) as f:
+            data = yaml.load(f)
+
+        return self._set_updated_data(data)
+
     def _set_updated_data(self, updated_data):
         data = OrderedDict()
 
@@ -64,7 +77,10 @@ class ExcelLoader:
                 if len(row) < 2:
                     updated_meta_value = None
                 else:
-                    updated_meta_value = row[1]
+                    try:
+                        updated_meta_value = list(json.loads(row[1]).values())[0]
+                    except (json.decoder.JSONDecodeError, TypeError):
+                        updated_meta_value = row[1]
 
                 self.meta[row[0]] = updated_meta_value
 
@@ -72,7 +88,7 @@ class ExcelLoader:
                 self.meta.move_to_end('modified', last=False)
                 self.meta.move_to_end('created', last=False)
             except KeyError as e:
-                print(e)
+                debugger_logger.debug(e)
 
             updated_data.pop('_meta')
 
@@ -141,6 +157,8 @@ class ExcelLoader:
                 self._save_pyexcel_json(out_file=out_file, out_data=save_data)
             else:
                 self._save_json(out_file=out_file, out_data=save_data)
+        elif out_format in ('.yaml', '.yml'):
+            self._save_yaml(out_file=out_file, out_data=save_data)
         else:
             raise ValueError('Unsupported file format, {}.'.format(out_file))
 
@@ -164,3 +182,8 @@ class ExcelLoader:
             export_string = json.dumps(out_data, cls=MyEncoder,
                                        indent=2, ensure_ascii=False)
             f.write(export_string)
+
+    @staticmethod
+    def _save_yaml(out_file: str, out_data: OrderedDict):
+        with open(out_file, 'w') as f:
+            yaml.dump(out_data, f, allow_unicode=True)

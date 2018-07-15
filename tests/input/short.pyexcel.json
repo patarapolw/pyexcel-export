@@ -1,11 +1,12 @@
 {
   "_meta": [
     ["\"created\"", "\"2018-07-15T05:32:43.976194\""],
-    ["\"modified\"", "\"2018-07-15T09:48:33.264241\""],
+    ["\"modified\"", "\"2018-07-15T13:47:11.262135\""],
     ["\"has_header\"", "true"],
     ["\"freeze_header\"", "true"],
     ["\"col_width_fit_param_keys\"", "true"],
-    ["\"col_width_fit_ids\"", "true"]
+    ["\"col_width_fit_ids\"", "true"],
+    ["\"allow_table_hiding\"", "true"]
   ],
   "test": [
     ["\"id\"", "\"English\"", "\"Pinyin\"", "\"Hanzi\"", "\"Audio\"", "\"Tags\""],

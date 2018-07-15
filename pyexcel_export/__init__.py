@@ -2,7 +2,7 @@ from .app import ExcelLoader
 from .defaults import Meta
 
 
-def read_pyexcel_json(in_file, **flags):
+def get_data(in_file, **flags):
     loader = ExcelLoader(in_file, **flags)
 
     return loader.data, loader.meta
