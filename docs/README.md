@@ -31,4 +31,4 @@
 
 ## Writing hidden tables (hidden worksheets)
 
-Just name the worksheets starting with `_` and set the flag `allow_table_hiding` to True (default: True).
+Just name the worksheets starting with `_` and set the flag `allow_table_hiding` to True (default: True). The tables will instead appear at the bottom of `_meta`.
