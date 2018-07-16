@@ -1,12 +1,14 @@
 import openpyxl
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.copier import WorksheetCopy
+from openpyxl.styles import Alignment
 
 import logging
 import json
 from io import BytesIO
 from collections import OrderedDict
 from pathlib import Path
+import math
 
 from .serialize import MyEncoder
 from .defaults import Meta
@@ -195,9 +197,37 @@ class ExcelFormatter:
                         width = max([len(str(cell.value)) for cell in list(ws.iter_cols())[i]])
                         ws.column_dimensions[col_letter].width = width + 2
 
-                        minimum_width = rules.get('minimum_col_width', 15)
-                        if ws.column_dimensions[col_letter].width < minimum_width:
-                            ws.column_dimensions[col_letter].width = minimum_width
+            if ws.title != '_meta':
+                col_width = []
+                for i in range(len(next(ws.iter_rows()))):
+                    col_letter = get_column_letter(i + 1)
+
+                    minimum_width = rules.get('minimum_col_width', 15)
+                    current_width = ws.column_dimensions[col_letter].width
+                    if not current_width or current_width < minimum_width:
+                        ws.column_dimensions[col_letter].width = minimum_width
+
+                    col_width.append(ws.column_dimensions[col_letter].width)
+
+                for i, row in enumerate(ws):
+                    multiples = []
+                    for j, cell in enumerate(row):
+                        wrap_text = False
+                        vertical = None
+
+                        if rules.get('wrap_text', True):
+                            wrap_text = True
+                            if cell.value is not None:
+                                str_width = len(str(cell.value))
+                                multiples.append(math.ceil(str_width / col_width[j]))
+
+                        if rules.get('align_top', True):
+                            vertical = "top"
+
+                        cell.alignment = Alignment(wrap_text=wrap_text, vertical=vertical)
+
+                    original_height = ws.row_dimensions[i+1].height
+                    ws.row_dimensions[i+1].height = max(multiples) * original_height
 
     @staticmethod
     def is_empty_sheet(ws):

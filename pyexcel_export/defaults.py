@@ -14,6 +14,8 @@ class Meta(OrderedDict):
             ('col_width_fit_param_keys', True),
             ('col_width_fit_ids', True),
             ('minimum_col_width', 15),
+            ('wrap_text', True),
+            ('align_top', True),
             ('bool_as_string', True),
             ('allow_table_hiding', True),
         ])

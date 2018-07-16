@@ -34,7 +34,7 @@ def test_read_pyexcel_json(in_file, test_file, out_file):
             for cell in row:
                 assert isinstance(cell, (int, str, bool, float))
 
-    pyexcel_export.save_data(out_file(in_file, '.xlsx'), data=data, meta=meta)
+    pyexcel_export.save_data(out_file(in_file.stem + '_pyexcel_json', '.xlsx'), data=data, meta=meta)
 
 
 @pytest.mark.parametrize('in_file', [
@@ -64,4 +64,4 @@ def test_read_pyexcel_yaml(in_file, test_file, out_file):
             for cell in row:
                 assert isinstance(cell, (int, str, bool, float))
 
-    pyexcel_export.save_data(out_file(in_file, ".xlsx"), data=data, meta=meta)
+    pyexcel_export.save_data(out_file(in_file.stem + '_pyexcel_yaml', ".xlsx"), data=data, meta=meta)

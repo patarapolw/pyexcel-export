@@ -10,6 +10,7 @@
         - col_width_fit_param_keys (default=True): makes column in `_meta` worksheet wide enough to fit the text.
         - col_width_fit_ids (default=True): makes any column with the header ending with "id" wide enough to fit the id, while retaining the cell type "number"
         - minimum_col_width (default=15): see your own number to enable a minimum bigger column width (or cell width).
+        - wrap_text (default=True): enable text wrapping in all cells.
         - bool_as_string (default=True): as a bug fix for openpyxl to rendering boolean in LibreOffice, the boolean becomes `"true"` instead of simply `true`.
         - allow_table_hiding (default=True): whether then table with the name starting with `_` is rendered in `_meta` worksheet.
 

@@ -32,4 +32,4 @@ def test_excel_loader(in_file, out_format, test_file, out_file):
     assert isinstance(in_file, Path)
 
     loader = ExcelLoader(in_file=in_file)
-    loader.save(out_file=out_file(in_file, '.xlsx'))
+    loader.save(out_file=out_file(in_file.stem + '_excel_loader', '.xlsx'))

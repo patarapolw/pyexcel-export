@@ -208,9 +208,9 @@ python-versions = "*"
 version = "1.4.0"
 
 [metadata]
-content-hash = "f2fc1967c6cfc2c68bab158b318a57a0d0b0d43797065bdc1ebe4419a885a6a5"
+content-hash = "81711b576479763ac987e7f0ad2a1bfca3679945876fb88b1af46d40b0e74cf8"
 platform = "*"
-python-versions = ">=3"
+python-versions = ">=3.5"
 
 [metadata.hashes]
 atomicwrites = ["240831ea22da9ab882b551b31d4225591e5e447a68c5e188db5b89ca1d487585", "a24da68318b08ac9c9c45029f4a10371ab5b20e4226738e150e6e7c571630ae6"]
