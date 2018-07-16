@@ -1,0 +1,25 @@
+build: false
+
+environment:
+  PYTHONIOENCODING: "UTF-8"
+
+  matrix:
+#    - PYTHON: "C:/Python27-x64"
+    - PYTHON: "C:/Python35-x64"
+    - PYTHON: "C:/Python36-x64"
+
+install:
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
+  # Upgrade to the latest version of pip to avoid it displaying warnings
+  # about it being out of date.
+  - "python -m pip install --disable-pip-version-check --user --upgrade pip"
+
+  # Create poetry virtualenv
+  - "python -m pip install poetry"
+
+  # Install dependencies
+  - "poetry install -v"
+
+test_script:
+  - "poetry run pytest"

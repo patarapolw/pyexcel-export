@@ -1,6 +1,7 @@
 # pyexcel-export - Keep optimal formatting when exported to xlsx format
 
 [![Build Status](https://travis-ci.org/patarapolw/pyexcel-export.svg?branch=master)](https://travis-ci.org/patarapolw/pyexcel-export)
+[![Build status](https://ci.appveyor.com/api/projects/status/wwg0b41pxaw586xr?svg=true)](https://ci.appveyor.com/project/patarapolw/pyexcel-export)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/pyexcel_export.svg)](https://pypi.python.org/pypi/pyexcel_export/)
 [![PyPI license](https://img.shields.io/pypi/l/pyexcel_export.svg)](https://pypi.python.org/pypi/pyexcel_export/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/pyexcel_export.svg)](https://pypi.python.org/pypi/pyexcel_export/)
