@@ -50,7 +50,7 @@ def test_update(in_file, update_to, test_file, out_file):
 
     assert isinstance(update_to, Path)
 
-    shutil.copy(update_to, out_file(update_to))
+    shutil.copy(str(update_to.absolute()), str(out_file(update_to).absolute()))
 
     in_file = test_file(in_file)
 
