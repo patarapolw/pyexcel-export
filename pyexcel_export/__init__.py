@@ -5,7 +5,7 @@ from .defaults import Meta
 def get_data(in_file, **flags):
     """
 
-    :param in_file: supported file formats are *.xlsx, *.yaml, *.json and *.pyexcel.json
+    :param str|Path in_file: supported file formats are *.xlsx, *.yaml, *.json and *.pyexcel.json
     :param flags: currently supported flags are 'has_header', 'freeze_header', 'col_width_fit_param_keys',
                   'col_width_fit_ids', 'bool_as_string', 'allow_table_hiding'
     :return:
@@ -18,7 +18,7 @@ def get_data(in_file, **flags):
 def get_meta(in_file=None, **flags):
     """
 
-    :param in_file:
+    :param str|Path in_file:
     :param flags:
     :return:
     """
@@ -33,7 +33,7 @@ def get_meta(in_file=None, **flags):
 def save_data(out_file, data, meta=None, retain_meta=False, retain_styles=False, **flags):
     """
 
-    :param out_file: supported file formats are *.xlsx, *.json and *.pyexcel.json
+    :param str|Path out_file: supported file formats are *.xlsx, *.json and *.pyexcel.json
     :param data:
     :param meta:
     :param retain_styles: whether you want to retain the overwritten worksheet's formatting

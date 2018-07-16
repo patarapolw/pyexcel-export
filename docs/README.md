@@ -53,18 +53,20 @@ Same as `pyexcel_export.save_data()`
 >>> loader = ExcelLoader("test.xlsx")
 >>> loader.formatted_object
 OrderedDict([('_meta', [['created', '2018-07-15T05:32:43.976194'], ['modified', '2018-07-16T07:31:26.232350'], ['has_header', True], ['freeze_header', True], ['col_width_fit_param_keys', True], ['col_width_fit_ids', True], ['bool_as_string', True], ['allow_table_hiding', True], ['_styles', <_io.BytesIO object at 0x103d7f678>]]), ('test', [['"id"', '"English"', '"Pinyin"', '"Hanzi"', '"Audio"', '"Tags"'], ['1419644212689', '"Hello!"', '"Nǐ hǎo!"', '"你好！"', '"[sound:tmp1cctcn.mp3]"', '""'], ['1419644212690', '"What are you saying?"', '"Nǐ shuō shénme?"', '"你说什么？"', '"[sound:tmp4tzxbu.mp3]"', '""'], ['1419644212691', '"What did you do?"', '"nǐ zuò le shénme ?"', '"你做了什么？"', '"[sound:333012.mp3]"', '""']])])
->>> dict([(k, v) for k, v in loader.__dict__.items() if k != 'meta'])
-{'in_file': '/Users/patarapolw/PycharmProjects/excelformatter/tests/input/test.xlsx', 'data': OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1419644212689, 'Hello!', 'Nǐ hǎo!', '你好！', '[sound:tmp1cctcn.mp3]', ''], [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', '你说什么？', '[sound:tmp4tzxbu.mp3]', ''], [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', '你做了什么？', '[sound:333012.mp3]', '']])])}
+>>> loader.data
+OrderedDict([('test', [['id', 'English', 'Pinyin', 'Hanzi', 'Audio', 'Tags'], [1419644212689, 'Hello!', 'Nǐ hǎo!', '你好！', '[sound:tmp1cctcn.mp3]', ''], [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', '你说什么？', '[sound:tmp4tzxbu.mp3]', ''], [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', '你做了什么？', '[sound:333012.mp3]', '']])])
 >>> loader.meta
 Meta([
-  created : '2018-07-15T05:32:43.976194',
-  modified : '2018-07-16T07:31:26.232350',
-  has_header : True,
-  freeze_header : True,
-  col_width_fit_param_keys : True,
-  col_width_fit_ids : True,
-  bool_as_string : True,
-  allow_table_hiding : True,
-  _styles : <_io.BytesIO object at 0x102a4af10>
+  ('created', '2018-07-15T05:32:43.976194'),
+  ('modified', '2018-07-16T07:31:26.232350'),
+  ('has_header', True),
+  ('freeze_header', True),
+  ('col_width_fit_param_keys', True),
+  ('col_width_fit_ids', True),
+  ('bool_as_string', True),
+  ('allow_table_hiding', True),
+  ('_styles', <_io.BytesIO object at 0x1065dff10>)
 ])
+>>> loader.in_file
+/Users/patarapolw/PycharmProjects/excelformatter/tests/input/test.xlsx
 ```

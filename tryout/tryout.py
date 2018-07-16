@@ -1,8 +1,5 @@
-from conftest import test_file
-from pyexcel_export import ExcelLoader
-
+from pathlib import Path
 
 if __name__ == '__main__':
-   loader = ExcelLoader(test_file()("test.xlsx"))
-   print(dict([(k, v) for k, v in loader.__dict__.items() if k != 'meta']))
-   print(loader.meta)
+    p = Path(__file__).parent.joinpath(Path('test.xs'))
+    print(str(p.resolve()))

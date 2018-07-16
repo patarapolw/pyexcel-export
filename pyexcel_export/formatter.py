@@ -2,11 +2,11 @@ import openpyxl
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.copier import WorksheetCopy
 
-import os
 import logging
 import json
 from io import BytesIO
 from collections import OrderedDict
+from pathlib import Path
 
 from .serialize import MyEncoder
 from .defaults import Meta
@@ -15,11 +15,24 @@ debug_logger = logging.getLogger('debug')
 
 
 class ExcelFormatter:
-    def __init__(self, template_file: str=None):
-        if template_file and os.path.exists(template_file):
-            self.styled_wb = openpyxl.load_workbook(template_file)
-            self.to_stylesheets(self.styled_wb)
-        else:
+    def __init__(self, template_file=None):
+        """
+
+        :param str|Path|None template_file:
+        """
+        is_read = False
+
+        if template_file:
+            if not isinstance(template_file, Path):
+                template_file = Path(template_file)
+
+            if template_file.exists():
+                self.styled_wb = openpyxl.load_workbook(template_file)
+                self.to_stylesheets(self.styled_wb)
+
+                is_read = True
+
+        if not is_read:
             self.styled_wb = openpyxl.Workbook()
             self.styled_wb.active.title = '_template'
 
@@ -35,7 +48,16 @@ class ExcelFormatter:
         self.styled_wb = openpyxl.load_workbook(_styles)
 
     def save(self, raw_data, out_file, meta=None, retain_meta=True):
-        retain_meta = True
+        """
+
+        :param raw_data:
+        :param str|Path out_file:
+        :param meta:
+        :param retain_meta:
+        :return:
+        """
+        if not isinstance(out_file, Path):
+            out_file = Path(out_file)
 
         if not meta:
             meta = Meta()
@@ -44,7 +66,7 @@ class ExcelFormatter:
             self.data = meta['_styles']
             meta['_styles'] = self.data
 
-        if os.path.exists(out_file):
+        if out_file.exists():
             wb = openpyxl.load_workbook(out_file)
             self.to_stylesheets(wb)
             self.append_styled_sheets(wb)

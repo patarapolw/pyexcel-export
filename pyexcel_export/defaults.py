@@ -85,6 +85,6 @@ class Meta(OrderedDict):
     def __repr__(self):
         output = []
         for k, v in self.items():
-            output.append('{} : {}'.format(k, repr(v)))
+            output.append('(\'{}\', {})'.format(k, repr(v)))
 
         return 'Meta([\n  {}\n])'.format(',\n  '.join(output))

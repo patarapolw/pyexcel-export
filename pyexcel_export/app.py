@@ -1,11 +1,12 @@
 import pyexcel
 from collections import OrderedDict
 from datetime import datetime
-import os
 import json
 import copy
 import oyaml as yaml
 import logging
+from pathlib import Path
+import re
 
 from .serialize import RowExport, PyexcelExportEncoder, MyEncoder
 from .yaml_serialize import PyExcelYamlLoader
@@ -16,21 +17,29 @@ debugger_logger = logging.getLogger('debug')
 
 
 class ExcelLoader:
-    def __init__(self, in_file: str=None, **flags):
+    def __init__(self, in_file=None, **flags):
+        """
+
+        :param str|Path|None in_file:
+        :param flags:
+        """
         if in_file:
+            if not isinstance(in_file, Path):
+                in_file = Path(in_file)
+
             self.in_file = in_file
             self.meta = Meta(**flags)
 
-            in_base, in_format = os.path.splitext(in_file)
+            in_format = in_file.suffixes
 
-            if in_format == '.xlsx':
+            if in_format[-1] == '.xlsx':
                 self.data = self._load_pyexcel_xlsx()
-            elif in_format == '.json':
-                if os.path.splitext(in_base)[1] == '.pyexcel':
+            elif in_format[-1] == '.json':
+                if in_format[-2] == '.pyexcel':
                     self.data = self._load_pyexcel_json()
                 else:
                     self.data = self._load_json()
-            elif in_format in ('.yaml', '.yml'):
+            elif in_format[-1] in ('.yaml', '.yml'):
                 self.data = self._load_yaml()
             else:
                 raise ValueError('Unsupported file format, {}.'.format(in_format))
@@ -38,7 +47,7 @@ class ExcelLoader:
             self.meta = Meta(**flags)
 
     def _load_pyexcel_xlsx(self):
-        updated_data = pyexcel.get_book_dict(file_name=self.in_file)
+        updated_data = pyexcel.get_book_dict(file_name=str(self.in_file.resolve()))
         self.meta['_styles'] = ExcelFormatter(self.in_file).data
 
         return self._set_updated_data(updated_data)
@@ -112,6 +121,17 @@ class ExcelLoader:
         return formatted_object
 
     def save(self, out_file: str, retain_meta=True, out_format=None, retain_styles=True):
+        """
+
+        :param str|Path out_file:
+        :param retain_meta:
+        :param out_format:
+        :param retain_styles:
+        :return:
+        """
+        if not isinstance(out_file, Path):
+            out_file = Path(out_file)
+
         self.meta['modified'] = datetime.fromtimestamp(datetime.now().timestamp()).isoformat()
         self.meta.move_to_end('modified', last=False)
 
@@ -119,9 +139,9 @@ class ExcelLoader:
             self.meta.move_to_end('created', last=False)
 
         if out_format is None:
-            out_base, out_format = os.path.splitext(out_file)
+            out_format = out_file.suffixes
         else:
-            out_base = os.path.splitext(out_file)[0]
+            out_format = re.findall('\.[^.]+', out_format)
 
         save_data = copy.deepcopy(self.data)
 
@@ -150,40 +170,77 @@ class ExcelLoader:
         for sheet_name in to_remove:
             save_data.pop(sheet_name)
 
-        if out_format == '.xlsx':
+        if out_format[-1] == '.xlsx':
             self._save_openpyxl(out_file=out_file, out_data=save_data, retain_meta=retain_meta)
-        elif out_format == '.json':
-            if os.path.splitext(out_base)[1] == '.pyexcel':
+        elif out_format[-1] == '.json':
+            if out_format[-2] == '.pyexcel':
                 self._save_pyexcel_json(out_file=out_file, out_data=save_data)
             else:
                 self._save_json(out_file=out_file, out_data=save_data)
-        elif out_format in ('.yaml', '.yml'):
+        elif out_format[-1] in ('.yaml', '.yml'):
             self._save_yaml(out_file=out_file, out_data=save_data)
         else:
             raise ValueError('Unsupported file format, {}.'.format(out_file))
 
-    def _save_openpyxl(self, out_file: str, out_data: OrderedDict, retain_meta: bool=True):
+    def _save_openpyxl(self, out_file, out_data: OrderedDict, retain_meta: bool=True):
+        """
+
+        :param str|Path out_file:
+        :param out_data:
+        :param retain_meta:
+        :return:
+        """
+        if not isinstance(out_file, Path):
+            out_file = Path(out_file)
+
         formatter = ExcelFormatter(out_file)
-        if os.path.exists(out_file):
+        if out_file.exists():
             self.meta['_styles'] = formatter.data
 
         formatter.save(out_data, out_file, meta=self.meta, retain_meta=retain_meta)
 
     @staticmethod
-    def _save_pyexcel_json(out_file: str, out_data: OrderedDict):
+    def _save_pyexcel_json(out_file, out_data: OrderedDict):
+        """
+
+        :param str|Path out_file:
+        :param out_data:
+        :return:
+        """
+        if not isinstance(out_file, Path):
+            out_file = Path(out_file)
+
         with open(out_file, 'w') as f:
             export_string = json.dumps(out_data, cls=PyexcelExportEncoder,
                                        indent=2, ensure_ascii=False)
             f.write(export_string)
 
     @staticmethod
-    def _save_json(out_file: str, out_data: OrderedDict):
+    def _save_json(out_file, out_data: OrderedDict):
+        """
+
+        :param str|Path out_file:
+        :param out_data:
+        :return:
+        """
+        if not isinstance(out_file, Path):
+            out_file = Path(out_file)
+
         with open(out_file, 'w') as f:
             export_string = json.dumps(out_data, cls=MyEncoder,
                                        indent=2, ensure_ascii=False)
             f.write(export_string)
 
     @staticmethod
-    def _save_yaml(out_file: str, out_data: OrderedDict):
+    def _save_yaml(out_file, out_data: OrderedDict):
+        """
+
+        :param str|Path out_file:
+        :param out_data:
+        :return:
+        """
+        if not isinstance(out_file, Path):
+            out_file = Path(out_file)
+
         with open(out_file, 'w') as f:
             yaml.dump(out_data, f, allow_unicode=True)

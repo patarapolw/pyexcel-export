@@ -1,9 +1,8 @@
 language: python
 python:
-  - "3.4"
   - "3.5"
   - "3.6"
-  - "3.7-dev"
+#  - "3.7-dev"  # Doesn't matter. I am using 3.7 (not dev) on Mac OSX anyways.
 
 install:
   - "curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python"
