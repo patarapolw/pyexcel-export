@@ -131,9 +131,7 @@ class ExcelFormatter:
                     if isinstance(value, (dict, OrderedDict)):
                         value = json.dumps(value, cls=MyEncoder)
 
-                    ws.cell(column=(col_num + 1),
-                            row=(row_num + 1),
-                            value=value)
+            self.fill_matrix(ws, cell_matrix, rules=meta)
 
         for sheet_name in extraneous_sheet_names:
             if sheet_name in wb.sheetnames:
@@ -192,7 +190,7 @@ class ExcelFormatter:
             if rules.get('col_width_fit_ids', False) in (True, 'true'):
                 for i, header_cell in enumerate(next(ws.iter_rows())):
                     header_item = header_cell.value
-                    if header_item and header_item.endswith('id'):
+                    if header_item and str(header_item).endswith('id'):
                         col_letter = get_column_letter(i + 1)
                         width = max([len(str(cell.value)) for cell in list(ws.iter_cols())[i]])
                         ws.column_dimensions[col_letter].width = width + 2
@@ -210,7 +208,7 @@ class ExcelFormatter:
                     col_width.append(ws.column_dimensions[col_letter].width)
 
                 for i, row in enumerate(ws):
-                    multiples = []
+                    multiples = [1]
                     for j, cell in enumerate(row):
                         wrap_text = False
                         vertical = None
@@ -227,6 +225,9 @@ class ExcelFormatter:
                         cell.alignment = Alignment(wrap_text=wrap_text, vertical=vertical)
 
                     original_height = ws.row_dimensions[i+1].height
+                    if original_height is None:
+                        original_height = 12.75
+
                     ws.row_dimensions[i+1].height = max(multiples) * original_height
 
     @staticmethod

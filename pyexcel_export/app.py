@@ -173,7 +173,7 @@ class ExcelLoader:
         if out_format[-1] == '.xlsx':
             self._save_openpyxl(out_file=out_file, out_data=save_data, retain_meta=retain_meta)
         elif out_format[-1] == '.json':
-            if out_format[-2] == '.pyexcel':
+            if len(out_format) > 1 and out_format[-2] == '.pyexcel':
                 self._save_pyexcel_json(out_file=out_file, out_data=save_data)
             else:
                 self._save_json(out_file=out_file, out_data=save_data)
