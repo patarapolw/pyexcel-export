@@ -53,7 +53,7 @@ class ExcelLoader:
         return self._set_updated_data(updated_data)
 
     def _load_pyexcel_json(self):
-        with open(str(self.in_file.absolute())) as f:
+        with self.in_file.open(encoding='utf-8') as f:
             data = json.load(f, object_pairs_hook=OrderedDict)
 
         for sheet_name, sheet_data in data.items():
@@ -64,13 +64,13 @@ class ExcelLoader:
         return self._set_updated_data(data)
 
     def _load_json(self):
-        with open(str(self.in_file.absolute())) as f:
+        with self.in_file.open(encoding='utf8') as f:
             data = json.load(f, object_pairs_hook=OrderedDict)
 
         return self._set_updated_data(data)
 
     def _load_yaml(self):
-        with open(str(self.in_file.absolute())) as f:
+        with self.in_file.open(encoding='utf8') as f:
             data = yaml.load(f, Loader=PyExcelYamlLoader)
 
         return self._set_updated_data(data)
@@ -210,7 +210,7 @@ class ExcelLoader:
         if not isinstance(out_file, Path):
             out_file = Path(out_file)
 
-        with open(str(out_file.absolute()), 'w') as f:
+        with out_file.open('w', encoding='utf8') as f:
             export_string = json.dumps(out_data, cls=PyexcelExportEncoder,
                                        indent=2, ensure_ascii=False)
             f.write(export_string)
@@ -226,7 +226,7 @@ class ExcelLoader:
         if not isinstance(out_file, Path):
             out_file = Path(out_file)
 
-        with open(str(out_file.absolute()), 'w') as f:
+        with out_file.open('w', encoding='utf8') as f:
             export_string = json.dumps(out_data, cls=MyEncoder,
                                        indent=2, ensure_ascii=False)
             f.write(export_string)
@@ -242,5 +242,5 @@ class ExcelLoader:
         if not isinstance(out_file, Path):
             out_file = Path(out_file)
 
-        with open(str(out_file.absolute()), 'w') as f:
+        with out_file.open('w', encoding='utf8') as f:
             yaml.dump(out_data, f, allow_unicode=True)

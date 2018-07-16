@@ -195,6 +195,10 @@ class ExcelFormatter:
                         width = max([len(str(cell.value)) for cell in list(ws.iter_cols())[i]])
                         ws.column_dimensions[col_letter].width = width + 2
 
+                        minimum_width = rules.get('minimum_col_width', 15)
+                        if ws.column_dimensions[col_letter].width < minimum_width:
+                            ws.column_dimensions[col_letter].width = minimum_width
+
     @staticmethod
     def is_empty_sheet(ws):
         def is_not_empty():
