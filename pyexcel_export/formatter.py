@@ -27,7 +27,7 @@ class ExcelFormatter:
                 template_file = Path(template_file)
 
             if template_file.exists():
-                self.styled_wb = openpyxl.load_workbook(template_file)
+                self.styled_wb = openpyxl.load_workbook(str(template_file.resolve()))
                 self.to_stylesheets(self.styled_wb)
 
                 is_read = True
@@ -45,6 +45,8 @@ class ExcelFormatter:
 
     @data.setter
     def data(self, _styles):
+        assert isinstance(_styles, BytesIO)
+
         self.styled_wb = openpyxl.load_workbook(_styles)
 
     def save(self, raw_data, out_file, meta=None, retain_meta=True):
@@ -67,7 +69,7 @@ class ExcelFormatter:
             meta['_styles'] = self.data
 
         if out_file.exists():
-            wb = openpyxl.load_workbook(out_file)
+            wb = openpyxl.load_workbook(str(out_file.resolve()))
             self.to_stylesheets(wb)
             self.append_styled_sheets(wb)
 
@@ -139,7 +141,7 @@ class ExcelFormatter:
             if (sheet_name.startswith('_') and sheet_name != '_meta') or self.is_empty_sheet(wb[sheet_name]):
                 wb.remove(wb[sheet_name])
 
-        wb.save(out_file)
+        wb.save(str(out_file.resolve()))
 
     @staticmethod
     def create_styled_sheet(wb, sheet_name, pos: int=None):
