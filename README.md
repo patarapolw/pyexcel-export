@@ -1,5 +1,10 @@
 # pyexcel-export - Keep optimal formatting when exported to xlsx format
 
+[![Build Status](https://travis-ci.org/patarapolw/pyexcel_export.svg?branch=master)](https://travis-ci.org/patarapolw/AnkiTools)
+[![PyPI version shields.io](https://img.shields.io/pypi/v/pyexcel_export.svg)](https://pypi.python.org/pypi/pyexcel_export/)
+[![PyPI license](https://img.shields.io/pypi/l/pyexcel_export.svg)](https://pypi.python.org/pypi/pyexcel_export/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/pyexcel_export.svg)](https://pypi.python.org/pypi/pyexcel_export/)
+
 pyexcel-export is a wrapper around [pyexcel](https://github.com/pyexcel/pyexcel), [pyexcel-xlsx](https://github.com/pyexcel/pyexcel-xlsx) and [openpyxl](https://bitbucket.org/openpyxl/openpyxl) to read the formatting (stylesheets) and update the pre-existing file without destroying the stylesheets.
 
 pyexcel-export also introduces two new exporting format, `*.yaml` and `*.pyexcel.json` which is based on [NoIndentEncoder](https://stackoverflow.com/a/25935321/9023855). This allows you to edit the spreadsheet in you favorite text editor, without being frustrated by automatically collapsed cells in Excel.

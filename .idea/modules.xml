@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/excelformatter.iml" filepath="$PROJECT_DIR$/.idea/excelformatter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pyexcel-export.iml" filepath="$PROJECT_DIR$/.idea/pyexcel-export.iml" />
     </modules>
   </component>
 </project>

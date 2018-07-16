@@ -8,7 +8,7 @@ import oyaml as yaml
 import logging
 
 from .serialize import RowExport, PyexcelExportEncoder, MyEncoder
-# from .yaml_deserialize import PyexcelYamlLoader
+from .yaml_serialize import PyExcelYamlLoader
 from .defaults import Meta
 from .formatter import ExcelFormatter
 
@@ -62,7 +62,7 @@ class ExcelLoader:
 
     def _load_yaml(self):
         with open(self.in_file) as f:
-            data = yaml.load(f)
+            data = yaml.load(f, Loader=PyExcelYamlLoader)
 
         return self._set_updated_data(data)
 
