@@ -1,8 +1,8 @@
-import openpyxl
+from conftest import test_file
+from pyexcel_export import ExcelLoader
 
 
 if __name__ == '__main__':
-   wb = openpyxl.load_workbook('long.xlsx')
-   print(wb['_meta']['B3'].__dict__)
-
-   # wb.save('test.xlsx')
+   loader = ExcelLoader(test_file()("test.xlsx"))
+   print(dict([(k, v) for k, v in loader.__dict__.items() if k != 'meta']))
+   print(loader.meta)

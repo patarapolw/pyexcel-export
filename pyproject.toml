@@ -10,7 +10,7 @@ homepage = "https://github.com/patarapolw/pyexcel-export"
 keywords = ["excel", "openpyxl", "pyexcel", "yaml"]
 
 [tool.poetry.dependencies]
-python = ">=3"
+python = ">=3.5"
 pyexcel = "^0.5.8"
 pyexcel-xlsx = "^0.5.6"
 openpyxl = "^2.5"
