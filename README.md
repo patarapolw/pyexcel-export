@@ -88,23 +88,22 @@ Meta([
 ### \*.yaml format
 
 ```yaml
-!!python/object/apply:collections.OrderedDict
-- - - _meta
-    - - !!python/tuple [created, '2018-07-15T05:32:43.976194']
-      - !!python/tuple [modified, '2018-07-15T13:31:47.725480']
-      - !!python/tuple [has_header, true]
-      - !!python/tuple [freeze_header, true]
-      - !!python/tuple [col_width_fit_param_keys, true]
-      - !!python/tuple [col_width_fit_ids, true]
-      - !!python/tuple [allow_hidden_tables, true]
-  - - test
-    - - [id, English, Pinyin, Hanzi, Audio, Tags]
-      - [1419644212689, Hello!, Nǐ hǎo!, 你好！, '[sound:tmp1cctcn.mp3]', '']
-      - [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', 你说什么？, '[sound:tmp4tzxbu.mp3]',
-        '']
-      - [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', 你做了什么？, '[sound:333012.mp3]',
-        '']
-
+_meta:
+- [created, '2018-07-15T05:32:43.976194']
+- [modified, '2018-07-16T07:45:53.534165']
+- [has_header, true]
+- [freeze_header, true]
+- [col_width_fit_param_keys, true]
+- [col_width_fit_ids, true]
+- [bool_as_string, true]
+- [allow_table_hiding, true]
+test:
+- [id, English, Pinyin, Hanzi, Audio, Tags]
+- [1419644212689, Hello!, Nǐ hǎo!, 你好！, '[sound:tmp1cctcn.mp3]', '']
+- [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', 你说什么？, '[sound:tmp4tzxbu.mp3]',
+  '']
+- [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', 你做了什么？, '[sound:333012.mp3]',
+  '']
 ```
 
 ### \*.pyexcel.json format

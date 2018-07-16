@@ -8,9 +8,12 @@ from tests import getfile
 
 @pytest.mark.parametrize('in_file', [
     None,
-    'short.pyexcel.json',
-    'short.yaml',
-    'long.yaml',
+    'data_only.pyexcel.json',
+    'data_only.yaml',
+    'full.pyexcel.json',
+    'full.yaml',
+    'no_style.pyexcel.json',
+    'no_style.yaml',
     'test.xlsx'
 ])
 def test_get_meta(in_file):

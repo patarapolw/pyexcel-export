@@ -4,10 +4,11 @@ from datetime import datetime
 import os
 import json
 import copy
-import yaml
+import oyaml as yaml
 import logging
 
 from .serialize import RowExport, PyexcelExportEncoder, MyEncoder
+# from .yaml_deserialize import PyexcelYamlLoader
 from .defaults import Meta
 from .formatter import ExcelFormatter
 
@@ -78,7 +79,7 @@ class ExcelLoader:
                 else:
                     try:
                         updated_meta_value = list(json.loads(row[1]).values())[0]
-                    except (json.decoder.JSONDecodeError, TypeError):
+                    except (json.decoder.JSONDecodeError, TypeError, AttributeError):
                         updated_meta_value = row[1]
 
                 self.meta[row[0]] = updated_meta_value

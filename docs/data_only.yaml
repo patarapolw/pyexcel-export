@@ -1,0 +1,7 @@
+test:
+- [id, English, Pinyin, Hanzi, Audio, Tags]
+- [1419644212689, Hello!, Nǐ hǎo!, 你好！, '[sound:tmp1cctcn.mp3]', '']
+- [1419644212690, 'What are you saying?', 'Nǐ shuō shénme?', 你说什么？, '[sound:tmp4tzxbu.mp3]',
+  '']
+- [1419644212691, 'What did you do?', 'nǐ zuò le shénme ?', 你做了什么？, '[sound:333012.mp3]',
+  '']

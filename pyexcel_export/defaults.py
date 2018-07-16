@@ -2,6 +2,7 @@ from datetime import datetime
 from collections import OrderedDict
 from io import BytesIO
 import base64
+import binascii
 
 
 class Meta(OrderedDict):
@@ -46,14 +47,14 @@ class Meta(OrderedDict):
         result = OrderedDict(self)
 
         for k, v in self.items():
-            if type(v) not in (int, float, str, bool):
+            if type(v) not in (int, float, str, bool, BytesIO):
                 result[k] = {str(type(v)): v}
 
         return result
 
     @property
     def matrix(self):
-        return list(self.view.items())
+        return [list(k_v_pair) for k_v_pair in self.view.items()]
 
     def __setitem__(self, key, item):
         if self.get('bool_as_string', False):
@@ -72,6 +73,12 @@ class Meta(OrderedDict):
                     item = v
                 else:
                     item = BytesIO(base64.b64decode(v))
+
+        if isinstance(item, str):
+            try:
+                item = BytesIO(base64.b64decode(item))
+            except binascii.Error:
+                pass
 
         super().__setitem__(key, item)
 
