@@ -90,6 +90,15 @@ Meta([
 >>> data.update({"Sheet 1": [["header A", "header B", "header C"], [1, 2, 3]]})
 >>> save_data("your_file.xlsx", data, meta=meta)
 ```
+### Of course, you can use the ExcelLoader class directly
+
+```python
+>>> from pyexcel_export import ExcelLoader
+>>> loader = ExcelLoader("test.xlsx")
+>>> loader.save("test.xlsx")
+
+```
+
 ### \*.yaml format
 
 ```yaml

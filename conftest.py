@@ -14,14 +14,17 @@ def test_file():
 
 @pytest.fixture(scope="module")
 def out_file():
-    def _out_file(filename, do_overwrite=False):
+    def _out_file(out_base, out_format, do_overwrite=False):
+        filename = out_base + out_format
+
         out_filename = os.path.join(TRUE_ROOT, 'tests', 'output', filename)
         if not do_overwrite:
             while os.path.exists(out_filename):
                 filename = '_' + filename
                 out_filename = os.path.join(TRUE_ROOT, 'tests', 'output', filename)
         else:
-            assert os.path.exists(out_filename)
+            # assert os.path.exists(out_filename)
+            pass
 
         return out_filename
 
