@@ -1,7 +1,9 @@
-from pathlib import Path
+import openpyxl
 
-import pyexcel_export
+from conftest import test_file
+
 
 if __name__ == '__main__':
-    data, meta = pyexcel_export.get_data("PathoDict.yaml")
-    pyexcel_export.save_data('PathoDict.xlsx', data)
+    wb = openpyxl.load_workbook(str(test_file()('with_meta.xlsx')))
+    print(wb['good sheet'])
+

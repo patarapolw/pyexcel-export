@@ -209,7 +209,9 @@ class ExcelFormatter:
                     col_width.append(ws.column_dimensions[col_letter].width)
 
                 for i, row in enumerate(ws):
-                    multiples = [1]
+                    default_height = 12.5
+
+                    multiples_of_font_size = [default_height]
                     for j, cell in enumerate(row):
                         wrap_text = False
                         vertical = None
@@ -219,10 +221,10 @@ class ExcelFormatter:
                             if cell.value is not None:
                                 mul = 0
                                 for v in str(cell.value).split('\n'):
-                                    mul += math.ceil(len(v) / col_width[j])
+                                    mul += math.ceil(len(v) / col_width[j]) * cell.font.size
 
                                 if mul > 0:
-                                    multiples.append(mul)
+                                    multiples_of_font_size.append(mul)
 
                         if rules.get('align_top', True):
                             vertical = "top"
@@ -231,9 +233,9 @@ class ExcelFormatter:
 
                     original_height = ws.row_dimensions[i+1].height
                     if original_height is None:
-                        original_height = 12.5
+                        original_height = default_height
 
-                    new_height = max(multiples) * 12.5
+                    new_height = max(multiples_of_font_size)
                     if original_height < new_height:
                         ws.row_dimensions[i + 1].height = new_height
 
