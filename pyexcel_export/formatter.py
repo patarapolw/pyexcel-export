@@ -185,8 +185,9 @@ class ExcelFormatter:
                 if ws.title != '_meta':
                     ws.freeze_panes = 'A2'
             if rules.get('col_width_fit_param_keys', False) in (True, 'true'):
-                width = max([len(str(cell.value)) for cell in next(ws.iter_cols())])
-                ws.column_dimensions['A'].width = width + 2
+                if ws.title == '_meta':
+                    width = max([len(str(cell.value)) for cell in next(ws.iter_cols())])
+                    ws.column_dimensions['A'].width = width + 2
             if rules.get('col_width_fit_ids', False) in (True, 'true'):
                 for i, header_cell in enumerate(next(ws.iter_rows())):
                     header_item = header_cell.value
@@ -200,7 +201,7 @@ class ExcelFormatter:
                 for i in range(len(next(ws.iter_rows()))):
                     col_letter = get_column_letter(i + 1)
 
-                    minimum_width = rules.get('minimum_col_width', 15)
+                    minimum_width = rules.get('minimum_col_width', 20)
                     current_width = ws.column_dimensions[col_letter].width
                     if not current_width or current_width < minimum_width:
                         ws.column_dimensions[col_letter].width = minimum_width
@@ -216,8 +217,12 @@ class ExcelFormatter:
                         if rules.get('wrap_text', True):
                             wrap_text = True
                             if cell.value is not None:
-                                str_width = len(str(cell.value))
-                                multiples.append(math.ceil(str_width / col_width[j]))
+                                mul = 0
+                                for v in str(cell.value).split('\n'):
+                                    mul += math.ceil(len(v) / col_width[j])
+
+                                if mul > 0:
+                                    multiples.append(mul)
 
                         if rules.get('align_top', True):
                             vertical = "top"
@@ -226,9 +231,11 @@ class ExcelFormatter:
 
                     original_height = ws.row_dimensions[i+1].height
                     if original_height is None:
-                        original_height = 12.75
+                        original_height = 12.5
 
-                    ws.row_dimensions[i+1].height = max(multiples) * original_height
+                    new_height = max(multiples) * 12.5
+                    if original_height < new_height:
+                        ws.row_dimensions[i + 1].height = new_height
 
     @staticmethod
     def is_empty_sheet(ws):

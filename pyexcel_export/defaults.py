@@ -13,7 +13,7 @@ class Meta(OrderedDict):
             ('freeze_header', True),
             ('col_width_fit_param_keys', True),
             ('col_width_fit_ids', True),
-            ('minimum_col_width', 15),
+            ('minimum_col_width', 20),
             ('wrap_text', True),
             ('align_top', True),
             ('bool_as_string', True),

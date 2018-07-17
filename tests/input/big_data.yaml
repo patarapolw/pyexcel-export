@@ -1,0 +1,351 @@
+TagDict:
+- [Front, Back, Additional keywords, Tags]
+- [Alzheimer's disease, 'Widespread cortical atrophy
+
+    Presenilin-1
+
+    Presenilin-2
+
+    Down syndrome', presenilin-1 “A-beta amyloid” presenilin-2, neurology]
+- [Amyloid angiopathy, '', '', neurology]
+- [Charcot-Bouchard microaneurysms, '', “Bouchard microaneurysms”, neurology]
+- [Craniopharyngioma, 'Supra-tentorial
+
+    “adamantinomatous” appearance
+
+    adult - papillary type, resembling a nonkeratinizing squamous papilloma
+
+    cholesterol crystals found in "motor-oil"-like fluid', “adamantinomatous appearance”,
+  neurology]
+- [Pilocytic astrocytoma, 'Rosenthal fibers
+
+    Eosinophilic granular bodies
+
+    Mural nodule
+
+    Corkscrew fibers
+
+    ventricles', “Rosenthal fibers” “mural nodule” astrocytoma “Corkscrew fibers”,
+  neurology]
+- [Cerebral ischemia, Cortical laminar sclerosis, “cortical laminar sclerosis”, neurology]
+- [Subacute sclerosing panencephalitis, measles, '', neurology]
+- [Duret hemorrhage, 'Downward transtentorial (central) herniation may result in rupture
+    of the {{c1::paramedian}} branches of the {{c3::basilar}} artery', '', neurology]
+- [Parkinson's disease, 'Lewy body
+
+    Decrease dopamine, serotonin; increased acetylcholine
+
+    depigmentation of the substantia nigra pars compacta
+
+    round, eosinophilic inclusions composed of {{c2::α-synuclein}}', “substantia nigra
+    pars compacta” “Lewy body” synuclein alpha-synuclein, neurology]
+- [Ependymoma, 'Children
+
+    encircle vessels
+
+    pseudorosette / true rosette
+
+    rod-shaped blepharoblasts (basal ciliary bodies) found near the nucleus', rosette
+    blepharoblasts pseudorosette, neurology]
+- [Familial fatal insomnia, Prion, '', neurology]
+- [Pick's disease, 'Frontotemporal dementia
+
+    TDP-43
+
+    {{c1::round}} aggregates (shape) of hyperphosphorylated tau protein known as {{c3::Pick
+    bodies}}; may be seen with silver stain', “pick disease” “Frontotemporal dementia”
+    TDP-43 “pick bodies”, neurology]
+- [Huntington’s disease, 'CAG repeats
+
+    huntingtin gene
+
+    Decreased acetylcholine
+
+    Decreased GABA
+
+    NMDA-R binding and {{c1::glutamate}} excitotoxicity
+
+    {{c1::Chorea}} and {{c2::Athetosis}}
+
+    Alzheimer''s
+
+    caudate nucleus', “fried egg cell” NMDA-R “chicken-wire capillary pattern” “Alzheimer's
+    disease”, neurology]
+- [Glioblastoma multiforme, 'Grade IV astrocytoma
+
+    Pseudo-palisading', astrocytoma pseudo-palisading, neurology]
+- [Guillain-Barre syndrome, Inflammation and demyelination of peripheral nerves and
+    motor fibers, “Barre syndrome”, neurology]
+- [Hydrocephalus ex vacuo, 'Normal ICP
+
+    Alzheimer''s
+
+    Huntington
+
+    neurofibrillary tangles', vacuo “Huntington disease” “Alzheimer's disease” “neurofibrillary
+    tangles”, neurology]
+- [oligodendroglioma, 'Calcified in white matter, frontal lobe
+
+    "fried egg" cells with a "{{c1::chicken-wire}}" capillary pattern
+
+    "fried egg" cells with a "{{c1::chicken-wire}}" capillary pattern', “fried egg\”
+    “chicken-wire capillary pattern” cell “fried egg cell”, neurology]
+- [meningioma, 'round mass, dura
+
+    arachnoid cells
+
+    Psammoma bodies
+
+    whorled pattern, spindle cell
+
+    Syncytial type
+
+    Estrogen receptor', “Psammoma bodies” “Estrogen receptor” “arachnoid cells”, neurology]
+- [metachromatic leukodystrophy, 'sulfatides in lysosomes of oligodendrocytes
+
+    arylsulfatase A deficiency', leukodystrophy sulfatides “arylsulfatase A”, neurology]
+- [adrenoleukodystrophy, 'Coenzyme A deficiency
+
+    X-linked', “coenzyme A”, neurology]
+- [neurofibromatosis-2, 'juvenile cataracts, meningiomas, ependymomas, bilateral vestibular
+    schwannoma', “juvenile cataracts”, neurology]
+- [kernohan's notch, Uncal herniation, '', neurology]
+- [creutzfeldt-jakob disease, '{{c1::rapidly}} progressive dementia (speed) with ataxia
+    and myoclonus
+
+    Downward transtentorial (central) herniation may result in rupture of the {{c1::paramedian}}
+    branches of the {{c3::basilar}} artery
+
+    periodic {{c1::sharp wave}} complexes on EEG
+
+    formalin 24 hr then formic acid 1 hr then formalin 24 hr', “Jakob disease”, neurology]
+- [lewy body dementia, 'Early onset Alzheimer''s
+
+    cerebral cortex
+
+    visual hallucinations', '', neurology]
+- [medulloblastoma, 'CAG repeats
+
+    huntingtin gene
+
+    Decreased acetylcholine
+
+    Decreased GABA
+
+    NMDA-R binding and {{c1::glutamate}} excitotoxicity
+
+    {{c1::Chorea}} and {{c2::Athetosis}}
+
+    Hydrocephalus ex vacuo', “Wright rosettes” “drop metastasis” “granule cell of
+    the cerebellum” PNET medulloblastoma “peripheral neuroectodermal tumor” “Homer-Wright
+    rosettes”, neurology]
+- [gliosis, reactive astrocytes that line cystic space, '', neurology]
+- [krabbe disease, 'galactocerebrosidase deficiency
+
+    optic atrophy and globoid cells
+
+    peripheral neuropathy and developmental delay', galactocerebrosidase, neurology]
+- [multiple sclerosis, '{{c2::autoimmune}} destruction of CNS myelin and {{c1::oligodendrocytes}}
+
+    HLA-DR2
+
+    Increased IgG
+
+    Increased myelin basic protein
+
+    Sudden loss of vision - optic neuritis
+
+    Marcus Gunn pupils
+
+    Vertigo, scanning speech
+
+    Uhthoff''s phenomenon - worsen upon exposure to heat
+
+    {{c1::Periventricular plaques}}
+
+    hemiparesis or hemisensory symptoms
+
+    {{c1::Oligoclonal}} bands of IgG on high resolution electrophoresis', “scanning
+    speech” “optic neuritis” “Marcus Gunn pupils” HLA-DR2 “myelin basic protein” “Uhthoff's
+    phenomenon” “Gunn pupils”, neurology]
+- [normal pressure hydrocephalus, '', '', neurology]
+- [ischemic stroke, Red neuron, “red neuron”, neurology]
+- [osmotic demyelination syndrome, massive axonal demyelination of the pons, '', neurology]
+- [progressive multifocal leukoencephalopathy, 'destruction of {{c1::oligodendrocytes}}
+
+    immunocompromised
+
+    reactivation of latent JC virus infection', '', neurology]
+- [berry aneurysm, ADPKD, ADPKD, neurology]
+- [saccular aneurysm, '', '', neurology]
+- [alveolar soft part carcinoma, 'Highly malignant, although clinical course is slow
+    / indolent
+
+    Metastases up to 30 years later to veins, lungs, other
+
+    Deep soft tissue of oral cavity, pharynx, mediastinum, thigh / leg
+
+    well defined nests of cells separated by fibrous stroma
+
+    large polygonal cells with granular eosinophilic cytoplasm, vesicular nuclei,
+    prominent nucleoli
+
+    Vascular invasion common; also characteristic rod-shaped crystalloids
+
+    ', '', “soft tissue”]
+- [chordoma, 'clivus and sacrum
+
+    “physaliphorous” tumor cells', “physaliphorous tumor cells”, neurology]
+- [rhabdoid tumor, '', '', “soft tissue” KUB]
+- [glial tumors, Fibrillary process, '', neurology]
+- [pleomorphic xanthoastrocytoma, 'seizure, cerebral cortex
+
+    ', astrocytoma, neurology]
+- [subependymal giant cell astrocytoma, tuberous sclerosis, “tuberous sclerosis”,
+  neurology]
+- [meningothelial cells, '', '', neurology]
+- [hemangiopericytoma, 'aggressive
+
+    staghorn vessels', “staghorn vessels”, neurology]
+- [solitary fibrous tumor, '', '', neurology]
+- [hemangioblastoma, 'von Hippel-Lindau syndrome (VHL)
+
+    looks like Renal cell carcinoma', Hippel Lindau, neurology]
+- [schwannoma, It often has alternating areas of high and low cellularity (Antoni
+    A and B areas) and tends to make little palisaded arrays called Verocay bodies,
+  “Verocay body” Antoni, neurology]
+- [pituitary adenoma, '', '', neurology]
+- [pineocytoma, '', '', neurology]
+- [myxopapillary ependymoma, 'filum terminale, myxoid background', '', neurology]
+- [subependymoma, nodule on the ventricular wall, '', neurology]
+- [subependymal giant cell astrocytoma of tuberous sclerosis, lateral ventricles,
+  '', neurology]
+- [central neurocytoma, 'lateral/ third ventricle area
+
+    mistaken for an ependymoma', neurocytoma, neurology]
+- [choroid plexus papilloma, intraventricular tumor of young children and can even
+    be congenital, '', neurology]
+- [choroid plexus carcinoma, solid choroid plexus, '', neurology]
+- [blastoma, 'high grade and aggressive
+
+    This category does not include hemangioblastoma, or glioblastoma multiforme, or
+    olfactory neuroblastoma (a sinonasal tumor of adults, arising from the olfactory
+    membrane, unrelated to other things called neuroblastoma).', '', neurology]
+- [formalin, '100%formalin = 40%formaldehyde; ใช้จริง 10% buffered formalin
+
+    แช่ 6-8 ชม. เข้าได้ 1 mm/hr
+
+    can overfix
+
+    not used formalin: synovial, gout / use 100% ethanol
+
+    hodgkin - nodular sclerosing variant
+
+    0.4 cm 24 hr', fixative formaldehyde, basics]
+- [ethanol fixative, '95% frozen
+
+    100% gout', '', basics]
+- [zenker fixative, 'ละลาย bone
+
+    bone marrow', '', basics]
+- [fixation, '15-20 เท่า v/v
+
+    6-8 hr', '', basics]
+- [storage, '10y ยกเว้น cytology slides 5y
+
+    gross tissue - 2wk', '', basics]
+- [measurements, 'metric unit
+
+    weighing: intact specimen', '', basics]
+- [inking, ชิ้นเล็กที่เป็นมะเร็ง - ink หมด, '', basics]
+- [margins, 1. enface 2. perpendicular (appendix), '', basics]
+- [homogentistic acid, '', alkaptonuria, genetic]
+- [gallbladder, 'velvety inner surface
+
+    ', velvety, GI]
+- [hodgkin lympoma, formalinized - nodular sclerosing variant, formalin, hemato]
+- [electron microscopy, glutaraldehyde 4 C, glutaraldehyde, basics]
+- [bouin's solution, 'explosive
+
+    decalcification', '', basics]
+- [turnaround time, 2-3d, '', basics]
+- [rss, representative section submitted, '', basics]
+- [atypical localization of immature precursors, worse prognosis of MDS, ALIP, hematology]
+- [hairy cell leukemia, 'DBA-44 positive
+
+    TRAP positive', DBA-44 TRAP “Tartrate-Resistant Acid Phosphatase”, hematology]
+- [chronic lymphocytic leukemia, DBA-44 negative, DBA-44, hematology]
+- [tartrate-resistant acid phosphatase, bone turnover marker, “hairy cell leukemia”
+    TRAP, marker hematology]
+- [ameloblastoma, 'Solid and cystic
+
+    Rarely is unicystic
+
+    reverse polarization away from basement membrane (Vickers-Gorlin change)
+
+    Stellate reticulum-like cells
+
+    No dentin or enamel formation
+
+    Malignant ameloblastoma - Identical histology but with metastasis
+
+    Ameloblastic carcinoma - cytological atypia, high N:C ratio, increased mitoses
+    with atypical forms, necrosis
+
+    Adenomatoid odontogenic tumor - Duct-like spaces contain eosinophilic secretions
+    and amyloid-like material may be present', “Gorlin change” “Vickers-Gorlin change”,
+  marker HEENT]
+- [cytokeratin ae1 / ae3, 'but does not detect CK17 or CK18
+
+    Epithelial marker', CK, marker]
+- [alveolar rhabdomyosarcoma, 'Cells are often small with little cytoplasm. Nuclei
+    of the cells are round with normal, dull, chromatin structures
+
+    Rhabdomyosarcoma expresses desmin, myogenin, MyoD1, and myoglobin.', '', “soft
+    tissue”]
+- [myxofibrosarcoma, '"Pseudolipoblasts" may be seen (tumor cells with cytoplasmic
+    vacuoles filled with mucin / myxoid material)', pseudolipoblast, “soft tissue”]
+- [low-grade myofibroblastic sarcoma, 'Deep intramuscular tumor of head and neck (tongue
+    and oral cavity) and extremities (1.5 - 17 cm), rarely abdominopelvic
+
+    Commonly recurs, only rarely metastasizes; recurrences may be higher grade
+
+    No corresponding "high-grade myofibroblastic sarcoma"; such a tumor would fit
+    under the designation of undifferentiated pleomorphic sarcoma
+
+    No histiocytic giant cells or prominent inflammation
+
+    Circumscribed to diffusely infiltrative with fascicles or storiform growth of
+    spindled tumor cells
+
+    Cells have ill-defined pale eosinophilic cytoplasm, fusiform nuclei that are elongated
+    or wavy with evenly distributed chromatin or round and vesicular with indentations
+    and small nucleoli
+
+    At least focal moderate nuclear atypia with hyperchromasia and irregular nuclear
+    membranes
+
+    Collagenous matrix with prominent hyalinization', myofibrosarcoma, “soft tissue”]
+- [nodular fasciitis, 'Zonation effect with hypocellular central region and hypercellular
+    periphery
+
+    uniform, plump, immature, spindled to stellate fibroblasts or myofibroblasts without
+    atypia, with a feathery, "tissue-culture" like growth pattern due to abundant
+    ground substance', “subcutaneous pseudosarcomatous fibromatosis” “nodular pseudosarcomatous
+    fasciitis”, “soft tissue”]
+- [collagen rosette, Low-grade fibromyxoid sarcoma, '', “soft tissue”]
+- [low-grade fibromyxoid sarcoma, 'related to sclerosing epithelioid fibrosarcoma
+
+    hyalinizing spindle cell tumor with giant rosettes', “Evan's tumor”, “soft tissue”]
+- ['rosai-dorfman disease ', 'Typically massive lymph node involvement that may also
+    involve extranodal sites
+
+    Associated with systemic symptoms (fever, leukocytosis, anemia)
+
+    Large histiocytes with abundant pale eosinophilic cytoplasm, mildly atypical round
+    vesicular nuclei
+
+    Lymphocytophagocytosis (emperipolesis) in background of mature lymphocytes and
+    plasma cells
+
+    ', “Dorfman disease ” emperipolesis, HNB]

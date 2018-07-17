@@ -13,7 +13,8 @@ from pyexcel_export.defaults import Meta
     'full.yaml',
     'no_style.pyexcel.json',
     'no_style.yaml',
-    'test.xlsx'
+    'big_data.xlsx',
+    'with_meta.xlsx'
 ])
 def test_get_meta(in_file, test_file):
     if in_file is not None:
