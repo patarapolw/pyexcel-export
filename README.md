@@ -6,15 +6,15 @@
 [![PyPI license](https://img.shields.io/pypi/l/pyexcel_export.svg)](https://pypi.python.org/pypi/pyexcel_export/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/pyexcel_export.svg)](https://pypi.python.org/pypi/pyexcel_export/)
 
-pyexcel-export is a wrapper around [pyexcel](https://github.com/pyexcel/pyexcel), [pyexcel-xlsx](https://github.com/pyexcel/pyexcel-xlsx) and [openpyxl](https://bitbucket.org/openpyxl/openpyxl) to read the formatting (stylesheets) and update the pre-existing file without destroying the stylesheets.
+pyexcel-export is a wrapper around [pyexcel](https://github.com/pyexcel/pyexcel), [pyexcel-xlsx](https://github.com/pyexcel/pyexcel-xlsx) and [openpyxl](https://bitbucket.org/openpyxl/openpyxl) to read formatting (stylesheets) and update pre-existing files without destroying the stylesheets.
 
-pyexcel-export also introduces two new exporting format, `*.yaml` and `*.pyexcel.json` which is based on [NoIndentEncoder](https://stackoverflow.com/a/25935321/9023855). This allows you to edit the spreadsheet in you favorite text editor, without being frustrated by automatically collapsed cells in Excel.
+pyexcel-export also introduces two new exporting format, `*.yaml` and `*.pyexcel.json`, which is based on [NoIndentEncoder](https://stackoverflow.com/a/25935321/9023855). This allows you to edit the spreadsheet in you favorite text editor without being frustrated by automatically collapsed cells in Excel.
 
 ## Known constraints
 
 The "stylesheets" exported from Excel is in a very long base64 encoded format when exported to `*.json` or `*.pyexcel.json`, so exporting such to `*.json` is disabled by default.
 
-As stylesheets copying works by [`openpyxl.worksheet.copier.WorksheetCopy`](https://openpyxl.readthedocs.io/en/2.5/_modules/openpyxl/worksheet/copier.html), it may work only on values, styles, dimensions and merged cells, but charts might not be supported.
+As stylesheets copying works by [`openpyxl.worksheet.copier.WorksheetCopy`](https://openpyxl.readthedocs.io/en/2.5/_modules/openpyxl/worksheet/copier.html), it may work only on values, styles, dimensions, and merged cells, but charts might not be supported.
 
 ## Installation
 
@@ -142,3 +142,25 @@ test:
   ]
 }
 ```
+
+## MIT License
+
+Copyright (c) 2018 Pacharapol Withayasakpunt
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
