@@ -15,10 +15,13 @@ debugger_logger = logging.getLogger('debug')
 ])
 @pytest.mark.parametrize('out_format', [
     '.pyexcel.json',
-    '.yaml'
+    '.yaml',
+    '.json'
 ])
 @pytest.mark.parametrize('retain_meta', [True, False])
-def test_save_new_yaml_json(in_file, out_format, retain_meta, test_file, out_file, request):
+@pytest.mark.parametrize('retain_styles', [True, False])
+def test_save_new_yaml_json(in_file, out_format, retain_meta, retain_styles,
+                            test_file, out_file, request):
     """
 
     :param str in_file:
@@ -34,7 +37,9 @@ def test_save_new_yaml_json(in_file, out_format, retain_meta, test_file, out_fil
 
     data, meta = pyexcel_export.get_data(in_file)
 
-    pyexcel_export.save_data(out_file(out_base=request.node.name, out_format=out_format), data=data, meta=meta, retain_meta=retain_meta)
+    pyexcel_export.save_data(out_file(out_base=request.node.name, out_format=out_format),
+                             data=data, meta=meta, retain_meta=retain_meta,
+                             retain_styles=retain_styles)
 
 
 @pytest.mark.parametrize('in_file', [

@@ -32,10 +32,10 @@ class ExcelLoader:
 
             in_format = in_file.suffixes
 
-            if in_format[-1] == '.xlsx':
+            if in_format and in_format[-1] == '.xlsx':
                 self.data = self._load_pyexcel_xlsx()
             elif in_format[-1] == '.json':
-                if in_format[-2] == '.pyexcel':
+                if len(in_format) > 1 and in_format[-2] == '.pyexcel':
                     self.data = self._load_pyexcel_json()
                 else:
                     self.data = self._load_json()
@@ -48,7 +48,7 @@ class ExcelLoader:
 
     def _load_pyexcel_xlsx(self):
         updated_data = pyexcel.get_book_dict(file_name=str(self.in_file.absolute()))
-        self.meta['_styles'] = ExcelFormatter(self.in_file).data
+        self.meta.setdefault('_styles', dict())['excel'] = ExcelFormatter(self.in_file).data
 
         return self._set_updated_data(updated_data)
 
@@ -105,20 +105,6 @@ class ExcelLoader:
             data[k] = v
 
         return data
-
-    @property
-    def formatted_object(self):
-        formatted_object = OrderedDict(
-            _meta=self.meta.matrix
-        )
-
-        for sheet_name, sheet_data in self.data.items():
-            formatted_sheet_object = []
-            for row in sheet_data:
-                formatted_sheet_object.append(RowExport(row))
-            formatted_object[sheet_name] = formatted_sheet_object
-
-        return formatted_object
 
     def save(self, out_file: str, retain_meta=True, out_format=None, retain_styles=True):
         """
@@ -195,7 +181,7 @@ class ExcelLoader:
 
         formatter = ExcelFormatter(out_file)
         if out_file.exists():
-            self.meta['_styles'] = formatter.data
+            self.meta.setdefault('_styles', dict())['excel'] = formatter.data
 
         formatter.save(out_data, out_file, meta=self.meta, retain_meta=retain_meta)
 
@@ -207,6 +193,10 @@ class ExcelLoader:
         :param out_data:
         :return:
         """
+        for k, v in out_data.items():
+            for i, row in enumerate(v):
+                out_data[k][i] = RowExport(row)
+
         if not isinstance(out_file, Path):
             out_file = Path(out_file)
 

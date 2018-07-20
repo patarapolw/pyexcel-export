@@ -7,12 +7,9 @@ from pyexcel_export.defaults import Meta
 
 @pytest.mark.parametrize('in_file', [
     None,
-    'data_only.pyexcel.json',
-    'data_only.yaml',
-    'full.pyexcel.json',
-    'full.yaml',
-    'no_style.pyexcel.json',
-    'no_style.yaml',
+    'test.pyexcel.json',
+    'test.yaml',
+    'test.json',
     'big_data.xlsx',
     'with_meta.xlsx'
 ])

@@ -9,6 +9,7 @@ from io import BytesIO
 from collections import OrderedDict
 from pathlib import Path
 import math
+import base64
 
 from .serialize import MyEncoder
 from .defaults import Meta
@@ -47,7 +48,10 @@ class ExcelFormatter:
 
     @data.setter
     def data(self, _styles):
-        assert isinstance(_styles, BytesIO)
+        if isinstance(_styles, (dict, OrderedDict)):
+            _styles = _styles['excel']
+        if not isinstance(_styles, BytesIO):
+            _styles = BytesIO(base64.b64decode(_styles))
 
         self.styled_wb = openpyxl.load_workbook(_styles)
 
@@ -67,8 +71,13 @@ class ExcelFormatter:
             meta = Meta()
 
         if '_styles' in meta.keys():
-            self.data = meta['_styles']
-            meta['_styles'] = self.data
+            if isinstance(meta['_styles'], (dict, OrderedDict)):
+                if 'excel' in meta['_styles'].keys():
+                    self.data = meta['_styles']['excel']
+                    meta['_styles']['excel'] = self.data
+            else:
+                self.data = meta['_styles']
+                meta['_styles'] = self.data
 
         if out_file.exists():
             wb = openpyxl.load_workbook(str(out_file.absolute()))

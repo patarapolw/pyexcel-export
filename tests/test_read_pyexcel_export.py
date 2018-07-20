@@ -8,9 +8,8 @@ import pyexcel_export
 
 
 @pytest.mark.parametrize('in_file', [
-    'data_only.pyexcel.json',
-    'no_style.pyexcel.json',
-    'full.pyexcel.json',
+    'test.pyexcel.json',
+    'test.json'
 ])
 def test_read_pyexcel_json(in_file, test_file, out_file, request):
     """
@@ -38,9 +37,7 @@ def test_read_pyexcel_json(in_file, test_file, out_file, request):
 
 
 @pytest.mark.parametrize('in_file', [
-    'data_only.yaml',
-    'no_style.yaml',
-    'full.yaml'
+    'test.yaml'
 ])
 def test_read_pyexcel_yaml(in_file, test_file, out_file, request):
     """

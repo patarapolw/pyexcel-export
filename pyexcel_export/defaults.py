@@ -39,9 +39,9 @@ class Meta(OrderedDict):
                     result[k] = 'false'
                     assigned = True
 
-            if not assigned:
-                if type(v) not in (int, float, str, bool):
-                    result[k] = {str(type(v)): v}
+            # if not assigned:
+            #     if type(v) not in (int, float, str, bool):
+            #         result[k] = {str(type(v)): v}
 
         return list(result.items())
 
@@ -49,9 +49,9 @@ class Meta(OrderedDict):
     def view(self):
         result = OrderedDict(self)
 
-        for k, v in self.items():
-            if type(v) not in (int, float, str, bool, BytesIO):
-                result[k] = {str(type(v)): v}
+        # for k, v in self.items():
+        #     if type(v) not in (int, float, str, bool, BytesIO):
+        #         result[k] = {str(type(v)): v}
 
         return result
 
