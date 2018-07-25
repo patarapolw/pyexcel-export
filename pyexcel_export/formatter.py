@@ -10,6 +10,7 @@ from collections import OrderedDict
 from pathlib import Path
 import math
 import base64
+from copy import copy
 
 from .serialize import MyEncoder
 from .defaults import Meta
@@ -179,6 +180,8 @@ class ExcelFormatter:
 
     @staticmethod
     def fill_matrix(ws, cell_matrix, start_row=0, rules=None):
+        max_row = ws.max_row
+
         for row_num, row in enumerate(cell_matrix):
             for col_num, value in enumerate(row):
                 if isinstance(value, (dict, OrderedDict)):
@@ -187,6 +190,15 @@ class ExcelFormatter:
                 ws.cell(column=(col_num + 1),
                         row=(row_num + start_row + 1),
                         value=value)
+
+                if row_num + start_row + 1 > max_row:
+                    source_cell = ws.cell(column=(col_num + 1),
+                                          row=(row_num + start_row))
+                    target_cell = ws.cell(column=(col_num + 1),
+                                          row=(row_num + start_row + 1))
+
+                    if source_cell.has_style:
+                        target_cell._style = copy(source_cell._style)
 
         if rules is not None:
             if rules.get('has_header', False) in (True, 'true') \
