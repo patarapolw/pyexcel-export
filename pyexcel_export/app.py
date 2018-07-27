@@ -1,6 +1,5 @@
 import pyexcel
 from collections import OrderedDict
-from datetime import datetime
 import json
 import copy
 import oyaml as yaml
@@ -93,12 +92,6 @@ class ExcelLoader:
 
                 self.meta[row[0]] = updated_meta_value
 
-            try:
-                self.meta.move_to_end('modified', last=False)
-                self.meta.move_to_end('created', last=False)
-            except KeyError as e:
-                debugger_logger.debug(e)
-
             updated_data.pop('_meta')
 
         for k, v in updated_data.items():
@@ -118,12 +111,6 @@ class ExcelLoader:
         if not isinstance(out_file, Path):
             out_file = Path(out_file)
 
-        self.meta['modified'] = datetime.fromtimestamp(datetime.now().timestamp()).isoformat()
-        self.meta.move_to_end('modified', last=False)
-
-        if 'created' in self.meta.keys():
-            self.meta.move_to_end('created', last=False)
-
         if out_format is None:
             out_format = out_file.suffixes
         else:
@@ -131,42 +118,34 @@ class ExcelLoader:
 
         save_data = copy.deepcopy(self.data)
 
-        if retain_meta:
-            save_data['_meta'] = self.meta.matrix
-            if not retain_styles:
-                for i, row in enumerate(save_data['_meta']):
-                    if row[0] == '_styles':
-                        save_data['_meta'].pop(i)
-                        break
-
-            save_data.move_to_end('_meta', last=False)
-        else:
+        if out_format[-1] == '.xlsx':
             if '_meta' in save_data.keys():
                 save_data.pop('_meta')
 
-        to_remove = []
-        for sheet_name, sheet_matrix in save_data.items():
-            if sheet_name == '_meta' or not sheet_name.startswith('_'):
-                for i, row in enumerate(sheet_matrix):
-                    if out_format == '.json':
-                        save_data[sheet_name][i] = RowExport(row)
-            else:
-                to_remove.append(sheet_name)
-
-        for sheet_name in to_remove:
-            save_data.pop(sheet_name)
-
-        if out_format[-1] == '.xlsx':
             self._save_openpyxl(out_file=out_file, out_data=save_data, retain_meta=retain_meta)
-        elif out_format[-1] == '.json':
-            if len(out_format) > 1 and out_format[-2] == '.pyexcel':
-                self._save_pyexcel_json(out_file=out_file, out_data=save_data)
-            else:
-                self._save_json(out_file=out_file, out_data=save_data)
-        elif out_format[-1] in ('.yaml', '.yml'):
-            self._save_yaml(out_file=out_file, out_data=save_data)
         else:
-            raise ValueError('Unsupported file format, {}.'.format(out_file))
+            if retain_meta:
+                save_data['_meta'] = self.meta.matrix
+                if not retain_styles:
+                    for i, row in enumerate(save_data['_meta']):
+                        if row[0] == '_styles':
+                            save_data['_meta'].pop(i)
+                            break
+
+                save_data.move_to_end('_meta', last=False)
+            else:
+                if '_meta' in save_data.keys():
+                    save_data.pop('_meta')
+
+            if out_format[-1] == '.json':
+                if len(out_format) > 1 and out_format[-2] == '.pyexcel':
+                    self._save_pyexcel_json(out_file=out_file, out_data=save_data)
+                else:
+                    self._save_json(out_file=out_file, out_data=save_data)
+            elif out_format[-1] in ('.yaml', '.yml'):
+                self._save_yaml(out_file=out_file, out_data=save_data)
+            else:
+                raise ValueError('Unsupported file format, {}.'.format(out_file))
 
     def _save_openpyxl(self, out_file, out_data: OrderedDict, retain_meta: bool=True):
         """

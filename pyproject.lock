@@ -39,6 +39,19 @@ version = "1.0.1"
 
 [[package]]
 category = "main"
+description = "Read resources from Python packages"
+name = "importlib-resources"
+optional = false
+platform = "*"
+python-versions = ">=2.7,!=3.0,!=3.1,!=3.2,!=3.3"
+version = "1.0.1"
+
+[package.dependencies]
+setuptools = "*"
+wheel = "*"
+
+[[package]]
+category = "main"
 description = "Julian dates from proleptic Gregorian and Julian calendars."
 name = "jdcal"
 optional = false
@@ -207,8 +220,17 @@ platform = "any"
 python-versions = "*"
 version = "1.4.0"
 
+[[package]]
+category = "main"
+description = "A built-package format for Python."
+name = "wheel"
+optional = false
+platform = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "0.31.1"
+
 [metadata]
-content-hash = "81711b576479763ac987e7f0ad2a1bfca3679945876fb88b1af46d40b0e74cf8"
+content-hash = "9e89e5f180c439aebd7eaa8f19cda1bcd1a5d3a3e790117bf261b284b74e753a"
 platform = "*"
 python-versions = ">=3.5"
 
@@ -217,6 +239,7 @@ atomicwrites = ["240831ea22da9ab882b551b31d4225591e5e447a68c5e188db5b89ca1d48758
 attrs = ["4b90b09eeeb9b88c35bc642cbac057e45a5fd85367b985bd2809c62b7b939265", "e0d0eb91441a3b53dab4d9b743eafc1ac44476296a2053b6ca3af0b139faf87b"]
 colorama = ["463f8483208e921368c9f306094eb6f725c6ca42b0f97e313cb5d5512459feda", "48eb22f4f8461b1df5734a074b57042430fb06e1d61bd1e11b078c0fe6d7a1f1"]
 et-xmlfile = ["614d9722d572f6246302c4491846d2c393c199cfa4edc9af593437691683335b"]
+importlib-resources = ["73f454e062ac149bafd262b18c1f9ebc91f53bd6474e028d1bf1c59ebd152efb"]
 jdcal = ["948fb8d079e63b4be7a69dd5f0cd618a0a57e80753de8248fd786a8a20658a07", "ea0a5067c5f0f50ad4c7bdc80abad3d976604f6fb026b0b3a17a9d84bb9046c9"]
 lml = ["12783c8851bb1b1aacf6d139aa41fb529e1723bff863e71034af07a55bf1e5a3", "58a11170ecb0ce5e4680ad8971f1e353b795d58953217d65c9a56e0d774261d6"]
 more-itertools = ["2b6b9893337bfd9166bee6a62c2b0c9fe7735dcf85948b387ec8cba30e85d8e8", "6703844a52d3588f951883005efcf555e49566a48afd4db4e965d69b883980d3", "a18d870ef2ffca2b8463c0070ad17b5978056f403fb64e3f15fe62a52db21cc0"]
@@ -232,3 +255,4 @@ pyyaml = ["3d7da3009c0f3e783b2c873687652d83b1bbfd5c88e9813fb7e5b03c0dd3108b", "3
 send2trash = ["60001cc07d707fe247c94f74ca6ac0d3255aabcb930529690897ca2a39db28b2", "f1691922577b6fa12821234aeb57599d887c4900b9ca537948d2dac34aea888b"]
 six = ["70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9", "832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"]
 texttable = ["95e8cfe85f8395a7eacdfbc8f09d885b9ef3a6ac6ead0364ea721de1127aa36b"]
+wheel = ["0a2e54558a0628f2145d2fc822137e322412115173e8a2ddbe1c9024338ae83c", "80044e51ec5bbf6c894ba0bc48d26a8c20a9ba629f4ca19ea26ecfcf87685f5f"]

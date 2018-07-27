@@ -10,12 +10,16 @@ from collections import OrderedDict
 from pathlib import Path
 import math
 import base64
+import re
+import importlib_resources
 from copy import copy
 
 from .serialize import MyEncoder
 from .defaults import Meta
 
 debug_logger = logging.getLogger('debug')
+
+DEFAULTS = json.loads(importlib_resources.read_text('pyexcel_export', 'defaults.json'))
 
 
 class ExcelFormatter:
@@ -56,7 +60,7 @@ class ExcelFormatter:
 
         self.styled_wb = openpyxl.load_workbook(_styles)
 
-    def save(self, raw_data, out_file, meta=None, retain_meta=True):
+    def save(self, raw_data, out_file, meta=None, retain_meta=False):
         """
 
         :param raw_data:
@@ -95,23 +99,20 @@ class ExcelFormatter:
         extraneous_sheet_names.append('_template')
         inserted_sheets = []
 
-        if not retain_meta:
-            extraneous_sheet_names.append('_meta')
-        else:
-            if '_meta' in original_sheet_names:
-                wb.remove(wb['_meta'])
+        if '_meta' in original_sheet_names:
+            wb.remove(wb['_meta'])
 
-            self.create_styled_sheet(wb, '_meta', 0)
+        self.create_styled_sheet(wb, '_meta', 0)
 
-            meta_matrix = []
+        meta_matrix = []
 
-            for k, v in meta.excel_matrix:
-                if not k.startswith('_'):
-                    if isinstance(v, (dict, OrderedDict)):
-                        v = json.dumps(v, cls=MyEncoder)
-                    meta_matrix.append([k, v])
+        for k, v in meta.excel_matrix:
+            if not k.startswith('_'):
+                if isinstance(v, (dict, OrderedDict)):
+                    v = json.dumps(v, cls=MyEncoder)
+                meta_matrix.append([k, v])
 
-            self.fill_matrix(wb['_meta'], meta_matrix, rules=meta)
+        self.fill_matrix(wb['_meta'], meta_matrix, rules=meta, header_row=None)
 
         if '_meta' in raw_data.keys():
             raw_data.pop('_meta')
@@ -120,36 +121,36 @@ class ExcelFormatter:
             if sheet_name not in original_sheet_names:
                 self.create_styled_sheet(wb, sheet_name)
                 inserted_sheets.append(sheet_name)
-            else:
-                if meta.get('allow_table_hiding', True) in (True, 'true'):
-                    if not sheet_name.startswith('_'):
-                        self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
+
+            if meta.get('merge_hidden_tables', DEFAULTS['merge_hidden_tables']) in (True, 'true'):
+                if not sheet_name.startswith('_'):
+                    self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
+                else:
+                    i = -1
+                    if '_meta' not in wb.sheetnames:
+                        self.create_styled_sheet(wb, '_meta', 0)
                     else:
                         for i, cell in enumerate(next(wb['_meta'].iter_cols())):
                             if not cell.value:
-                                matrix = [[sheet_name]]
-                                matrix.extend(cell_matrix)
-
-                                self.fill_matrix(wb['_meta'], matrix, start_row=i+1, rules=meta)
                                 break
-                else:
-                    self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
 
-            ws = wb[sheet_name]
-            for row_num, row in enumerate(cell_matrix):
-                for col_num, value in enumerate(row):
-                    if isinstance(value, (dict, OrderedDict)):
-                        value = json.dumps(value, cls=MyEncoder)
-
-            self.fill_matrix(ws, cell_matrix, rules=meta)
+                    matrix = [['# ' + sheet_name]]
+                    matrix.extend(cell_matrix)
+                    self.fill_matrix(wb['_meta'], matrix, start_row=i+2, rules=meta, header_row=1)
+            else:
+                self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
 
         for sheet_name in extraneous_sheet_names:
             if sheet_name in wb.sheetnames:
                 wb.remove(wb[sheet_name])
 
         for sheet_name in wb.sheetnames:
-            if (sheet_name.startswith('_') and sheet_name != '_meta') or self.is_empty_sheet(wb[sheet_name]):
+            if self.is_empty_sheet(wb[sheet_name]):
                 wb.remove(wb[sheet_name])
+
+        if not retain_meta:
+            if '_meta' in wb.sheetnames:
+                wb['_meta'].sheet_state = 'hidden'
 
         wb.save(str(out_file.absolute()))
 
@@ -179,7 +180,16 @@ class ExcelFormatter:
         return wb
 
     @staticmethod
-    def fill_matrix(ws, cell_matrix, start_row=0, rules=None):
+    def fill_matrix(ws, cell_matrix, start_row=0, rules=None, header_row=0):
+        """
+
+        :param ws:
+        :param cell_matrix:
+        :param start_row:
+        :param rules:
+        :param int|None header_row:
+        :return:
+        """
         max_row = ws.max_row
 
         for row_num, row in enumerate(cell_matrix):
@@ -201,28 +211,33 @@ class ExcelFormatter:
                         target_cell._style = copy(source_cell._style)
 
         if rules is not None:
-            if rules.get('has_header', False) in (True, 'true') \
-                    and rules.get('freeze_header', False) in (True, 'true'):
+            if rules.get('has_header', DEFAULTS['has_header']) in (True, 'true') \
+                    and rules.get('freeze_header', DEFAULTS['freeze_header']) in (True, 'true'):
                 if ws.title != '_meta':
                     ws.freeze_panes = 'A2'
-            if rules.get('col_width_fit_param_keys', False) in (True, 'true'):
+            if rules.get('col_width_fit_param_keys', DEFAULTS['col_width_fit_param_keys']) in (True, 'true'):
                 if ws.title == '_meta':
-                    width = max([len(str(cell.value)) for cell in next(ws.iter_cols())])
-                    ws.column_dimensions['A'].width = width + 2
-            if rules.get('col_width_fit_ids', False) in (True, 'true'):
-                for i, header_cell in enumerate(next(ws.iter_rows())):
-                    header_item = header_cell.value
-                    if header_item and str(header_item).endswith('id'):
-                        col_letter = get_column_letter(i + 1)
-                        width = max([len(str(cell.value)) for cell in list(ws.iter_cols())[i]])
-                        ws.column_dimensions[col_letter].width = width + 2
+                    iter_cols = ws.iter_cols()
+                    if iter_cols != tuple():
+                        width = max([len(str(cell.value)) for cell in next(iter_cols)])
+                        ws.column_dimensions['A'].width = width + 2
+            if rules.get('col_width_fit_ids', DEFAULTS['col_width_fit_ids']) in (True, 'true'):
+                if header_row is not None:
+                    for i, header_item in enumerate(cell_matrix[header_row]):
+                        if header_item and re.search(r'(?:(?<=^)|(?<=[\s_-]))id(?:(?=$)|(?=[\s_-]))',
+                                                     str(header_item), flags=re.IGNORECASE):
+                            col_letter = get_column_letter(i + 1)
+                            width = max([len(str(cell.value)) for cell in list(ws.iter_cols())[i]])
+                            ws.column_dimensions[col_letter].width = width + 2
 
-            if ws.title != '_meta':
+            iter_rows = ws.iter_rows()
+            if iter_rows != tuple():
                 col_width = []
-                for i in range(len(next(ws.iter_rows()))):
+
+                for i in range(len(next(iter_rows))):
                     col_letter = get_column_letter(i + 1)
 
-                    minimum_width = rules.get('minimum_col_width', 20)
+                    minimum_width = rules.get('minimum_col_width', DEFAULTS['minimum_col_width'])
                     current_width = ws.column_dimensions[col_letter].width
                     if not current_width or current_width < minimum_width:
                         ws.column_dimensions[col_letter].width = minimum_width
@@ -237,8 +252,12 @@ class ExcelFormatter:
                         wrap_text = False
                         vertical = None
 
-                        if rules.get('wrap_text', True):
-                            wrap_text = True
+                        if rules.get('wrap_text', DEFAULTS['wrap_text']):
+                            if header_row is not None:
+                                wrap_text = True
+                            else:
+                                continue
+
                             if cell.value is not None:
                                 mul = 0
                                 for v in str(cell.value).split('\n'):
@@ -247,7 +266,7 @@ class ExcelFormatter:
                                 if mul > 0:
                                     multiples_of_font_size.append(mul)
 
-                        if rules.get('align_top', True):
+                        if rules.get('align_top', DEFAULTS['align_top']):
                             vertical = "top"
 
                         cell.alignment = Alignment(wrap_text=wrap_text, vertical=vertical)
@@ -257,8 +276,12 @@ class ExcelFormatter:
                         original_height = default_height
 
                     new_height = max(multiples_of_font_size)
+                    max_height = rules.get('maximum_row_height', DEFAULTS['maximum_row_height'])
                     if original_height < new_height:
-                        ws.row_dimensions[i + 1].height = new_height
+                        if new_height < max_height:
+                            ws.row_dimensions[i + 1].height = new_height
+                        else:
+                            ws.row_dimensions[i + 1].height = max_height
 
     @staticmethod
     def is_empty_sheet(ws):

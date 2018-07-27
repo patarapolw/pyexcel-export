@@ -1,4 +1,3 @@
-from datetime import datetime
 from collections import OrderedDict
 from io import BytesIO
 import base64
@@ -6,24 +5,6 @@ import binascii
 
 
 class Meta(OrderedDict):
-    def __init__(self, **kwargs):
-        default = OrderedDict([
-            ('created', datetime.fromtimestamp(datetime.now().timestamp()).isoformat()),
-            ('has_header', True),
-            ('freeze_header', True),
-            ('col_width_fit_param_keys', True),
-            ('col_width_fit_ids', True),
-            ('minimum_col_width', 20),
-            ('wrap_text', True),
-            ('align_top', True),
-            ('bool_as_string', True),
-            ('allow_table_hiding', True),
-        ])
-
-        default.update(**kwargs)
-
-        super().__init__(**default)
-
     @property
     def excel_matrix(self):
         result = OrderedDict(self)

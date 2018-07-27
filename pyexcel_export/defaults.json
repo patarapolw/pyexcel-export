@@ -1,0 +1,12 @@
+{
+  "has_header": true,
+  "freeze_header": true,
+  "col_width_fit_param_keys": true,
+  "col_width_fit_ids": true,
+  "minimum_col_width": 20,
+  "maximum_row_height": 100,
+  "wrap_text": true,
+  "align_top": true,
+  "bool_as_string": false,
+  "merge_hidden_tables": true
+}
