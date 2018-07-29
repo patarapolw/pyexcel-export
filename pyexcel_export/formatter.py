@@ -126,17 +126,23 @@ class ExcelFormatter:
                 if not sheet_name.startswith('_'):
                     self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
                 else:
-                    i = -1
+                    i = 1
                     if '_meta' not in wb.sheetnames:
                         self.create_styled_sheet(wb, '_meta', 0)
-                    else:
-                        for i, cell in enumerate(next(wb['_meta'].iter_cols())):
-                            if not cell.value:
-                                break
 
-                    matrix = [['# ' + sheet_name]]
+                    while True:
+                        while True:
+                            if not wb['_meta'].cell(row=i, column=1).value:
+                                break
+                            i += 1
+
+                        if not wb['_meta'].cell(row=i+1, column=1).value:
+                            break
+                        i += 1
+
+                    matrix = [[sheet_name]]
                     matrix.extend(cell_matrix)
-                    self.fill_matrix(wb['_meta'], matrix, start_row=i+2, rules=meta, header_row=1)
+                    self.fill_matrix(wb['_meta'], matrix, start_row=i, rules=meta, header_row=1)
             else:
                 self.fill_matrix(wb[sheet_name], cell_matrix, rules=meta)
 
@@ -277,7 +283,7 @@ class ExcelFormatter:
 
                     new_height = max(multiples_of_font_size)
                     max_height = rules.get('maximum_row_height', DEFAULTS['maximum_row_height'])
-                    if original_height < new_height:
+                    if original_height < new_height or rules.get('reset_height', False):
                         if new_height < max_height:
                             ws.row_dimensions[i + 1].height = new_height
                         else:

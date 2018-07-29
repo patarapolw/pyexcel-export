@@ -8,5 +8,6 @@
   "wrap_text": true,
   "align_top": true,
   "bool_as_string": false,
-  "merge_hidden_tables": true
+  "merge_hidden_tables": true,
+  "reset_height": false
 }
