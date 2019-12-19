@@ -143,6 +143,14 @@ test:
 }
 ```
 
+## Contributing
+
+- Fork and clone this project
+- Install `poetry`, then `poetry install`
+- Make your edit
+- Run test by running `pytest`
+- Submit a pull request
+
 ## MIT License
 
 Copyright (c) 2018 Pacharapol Withayasakpunt
