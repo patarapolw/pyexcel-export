@@ -11,7 +11,6 @@ from pathlib import Path
 import math
 import base64
 import re
-import importlib_resources
 from copy import copy
 
 from .serialize import MyEncoder
@@ -19,7 +18,19 @@ from .defaults import Meta
 
 debug_logger = logging.getLogger('debug')
 
-DEFAULTS = json.loads(importlib_resources.read_text('pyexcel_export', 'defaults.json'))
+DEFAULTS = {
+  "has_header": True,
+  "freeze_header": True,
+  "col_width_fit_param_keys": True,
+  "col_width_fit_ids": True,
+  "minimum_col_width": 20,
+  "maximum_row_height": 100,
+  "wrap_text": True,
+  "align_top": True,
+  "bool_as_string": False,
+  "merge_hidden_tables": True,
+  "reset_height": False
+}
 
 
 class ExcelFormatter:

@@ -4,14 +4,13 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.7 (pyexcel-export)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.8 (pyexcel-export)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="" />
   </component>
   <component name="TestRunnerService">
-    <option name="projectConfiguration" value="py.test" />
     <option name="PROJECT_TEST_RUNNER" value="py.test" />
   </component>
 </module>
