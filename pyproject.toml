@@ -12,7 +12,7 @@ keywords = ["excel", "openpyxl", "pyexcel", "yaml"]
 [tool.poetry.dependencies]
 python = ">=3.5"
 pyexcel = "^0.5.8"
-openpyxl = "^2.5"
+openpyxl = "<2.6.0,>=2.5.0"
 oyaml = "^0.5.0"
 
 [tool.poetry.dev-dependencies]
