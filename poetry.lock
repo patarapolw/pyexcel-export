@@ -172,6 +172,18 @@ xlsx = ["pyexcel-xlsx (>=0.5.0)"]
 
 [[package]]
 category = "dev"
+description = "A wrapper library to read, manipulate and write data in xlsx and xlsmformat"
+name = "pyexcel-xlsx"
+optional = false
+python-versions = "*"
+version = "0.5.7"
+
+[package.dependencies]
+openpyxl = ">=2.5.0,<2.6.0"
+pyexcel-io = ">=0.5.3"
+
+[[package]]
+category = "dev"
 description = "pytest: simple powerful testing with Python"
 name = "pytest"
 optional = false
@@ -241,7 +253,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pathlib2", "contextlib2", "unittest2"]
 
 [metadata]
-content-hash = "9c04825c2d31073b87baf4a831ee08ca0d88693364922c0b425fccb85b5d9699"
+content-hash = "8940b4f727562a5bcfc7a103a2007141ad792740068a220e170a993cf83d2e2b"
 python-versions = ">=3.5"
 
 [metadata.files]
@@ -302,6 +314,10 @@ pyexcel = [
 pyexcel-io = [
     {file = "pyexcel-io-0.5.20.tar.gz", hash = "sha256:08dfe39553b996359b143de3d9ec43e196f1138d47cabb73af04a16821b84d79"},
     {file = "pyexcel_io-0.5.20-py2.py3-none-any.whl", hash = "sha256:2cba956814e72b66072d97b00ede4a084ad881ce72129088eb0dc3c7f3d670cd"},
+]
+pyexcel-xlsx = [
+    {file = "pyexcel-xlsx-0.5.7.tar.gz", hash = "sha256:31f261b38270b2a1cc4f86b2792722f1ba266c17d652b6866c353d5b06349d43"},
+    {file = "pyexcel_xlsx-0.5.7-py2.py3-none-any.whl", hash = "sha256:d60bf71c770d391c61bd76e75e6a3de1619a1db931c5f9b7d3c1ee1f33a6c6bc"},
 ]
 pytest = [
     {file = "pytest-3.10.1-py2.py3-none-any.whl", hash = "sha256:3f193df1cfe1d1609d4c583838bea3d532b18d6160fd3f55c9447fdca30848ec"},

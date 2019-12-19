@@ -114,7 +114,7 @@ class ExcelLoader:
         if out_format is None:
             out_format = out_file.suffixes
         else:
-            out_format = re.findall('\.[^.]+', out_format)
+            out_format = re.findall(r'\.[^.]+', out_format)
 
         save_data = copy.deepcopy(self.data)
 
